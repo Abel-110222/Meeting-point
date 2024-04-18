@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('mopri'),
+          title: const Text('Meeting Point'),
           actions: [
             IconButton(
               icon: const Icon(Icons.lightbulb),
