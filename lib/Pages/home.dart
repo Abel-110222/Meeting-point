@@ -5,7 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
-import 'package:punto_de_reunion/widgets/my_product_card.dart';
+import 'package:punto_de_reunion/widgets/my_category_card.dart';
 import 'package:punto_de_reunion/widgets/my_text_form_field.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -99,7 +99,6 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(left: 5.0, top: 50),
                 child: RichText(
                   text: const TextSpan(
-                    style: TextStyle(color: Colors.black),
                     children: [
                       TextSpan(
                         text: 'Hola Abel\n',
@@ -200,10 +199,30 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                   const SizedBox(height: 20),
-                                  MyProductCard(
-                                    onPressed: () {},
-                                    image: const Icon(Icons.abc),
-                                  ),
+                                  SizedBox(
+                                    height: 160,
+                                    child: ListView.builder(
+                                      scrollDirection:
+                                          Axis.horizontal, // Para desplazamiento horizontal
+                                      itemCount: 5, // Se repetirá 6 veces
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(left: 30, right: 5),
+                                          child: MyCategoryCard(
+                                            width: 300,
+                                            height: 250,
+                                            onPressed: () {},
+                                            image: const Icon(Icons.abc),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+
+                                  // MyProductCard(
+                                  //   onPressed: () {},
+                                  //   image: const Icon(Icons.abc),
+                                  // ),
                                 ],
                               ),
                             ],
@@ -224,9 +243,6 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
             child: Text('Drawer Header'),
           ),
           ListTile(
