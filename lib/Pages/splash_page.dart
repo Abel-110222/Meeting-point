@@ -1,48 +1,49 @@
-// ignore_for_file: library_prefixes
-
-// ignore_for_file: library_private_types_in_public_api
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:punto_de_reunion/utils/responsive.dart';
+import 'package:punto_de_reunion/Pages/promotion_splash.dart';
+import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
-
-  static const String splashRoute = '/SplashPageRoute';
-
+class SplashPage extends StatelessWidget {
+ const SplashPage({super.key});
   @override
-  _SplashPageState createState() => _SplashPageState();
+  Widget build(BuildContext context) {
+    return FlutterSplashScreen.fadeIn(
+      backgroundColor: Colors.white,
+      onInit: () {
+        debugPrint("On Init");
+      },
+      onEnd: () {
+        debugPrint("On End");
+      },
+      childWidget: const SplashContent(), // Aquí debes devolver tu contenido personalizado
+      onAnimationEnd: () => debugPrint("On Fade In End"),
+      nextScreen: const PromotionSplashPage(),
+    );
+  }
 }
 
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        'view_Home',
-        (route) => false,
-      );
-    });
-  }
+class SplashContent extends StatelessWidget {
+  const SplashContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Responsive responsive = Responsive(context);
+    //Responsive responsive = Responsive(context);
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Image.asset(
+            'assets/logo.png', // Asegúrate de que la ruta del archivo sea correcta
+            height: 200,
+            width: 200,
+          ),
           Text(
-            '¡Bienvenido!',
+            'Meeting Point!',
             style: TextStyle(
-              fontSize: responsive.fontSizeTitle,
+              fontFamily: 'Raleway',
+              fontSize: 30,
               fontWeight: FontWeight.bold,
+              color: Colors.green.shade300,
             ),
           ),
         ],

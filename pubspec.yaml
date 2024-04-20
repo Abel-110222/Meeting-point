@@ -42,6 +42,10 @@ dependencies:
   horizontal_data_table: ^4.3.1
   intl: ^0.19.0
   shared_preferences: ^2.2.3
+  smooth_page_indicator: ^1.1.0
+  flutter_svg: ^2.0.10+1
+  flutter_splash_screen: ^3.0.0
+  another_flutter_splash_screen: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -66,8 +70,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/logo.png
+    - assets/Order-food-amico.png
+    - assets/Online-Groceries-pana.png
+    - assets/In-no-time-cuate.png
+    - assets/Producto.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/Pages/Splash_Page.dart';
 import 'package:punto_de_reunion/Pages/home.dart';
+import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   'view_Home': (context) => const Home(),
                   '/SplashPageRoute': (context) => const SplashPage(),
+                  '/PromotionSplashPageRoute': (context) => const PromotionSplashPage(),
                 });
           },
         ));
