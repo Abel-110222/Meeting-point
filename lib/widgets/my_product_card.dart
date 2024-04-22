@@ -1,69 +1,126 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyProductCard extends StatelessWidget {
   final String label;
-  final Color? backColor;
-  final TextStyle style;
   final void Function() onPressed;
-  final Widget image;
+  final Widget? image;
+  final Color backColor;
 
   const MyProductCard({
+    super.key,
     this.label = '',
-    this.backColor = const Color.fromARGB(255, 232, 87, 87),
-    this.style = const TextStyle(
-      color: Colors.black,
-      fontSize: 12,
-    ),
     required this.onPressed,
     required this.image,
-    super.key,
+    this.backColor = Colors.white,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: backColor,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Imagen en la parte superior
-          Container(
-            height: 150,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-            ),
-            child: image,
-          ),
-          Expanded(
-            child: Padding(
+    final theme = Theme.of(context);
+    final backColor = theme.cardColor;
+    final textColor = theme.textTheme.bodyLarge!.color;
+
+    return Card(
+      child: Container(
+        width: 200,
+        height: 235, // Ajuste en la altura de la tarjeta
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Imagen en la parte superior
+            Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Aquí puedes agregar información adicional sobre el producto
-                  Text(
-                    label,
-                    style: style,
+              child: Container(
+                height: 100, // El 50% del alto de la tarjeta
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/hamburger-and-fries.jpg"),
                   ),
-                  const SizedBox(height: 8),
-                  // Botón de acción
-                  ElevatedButton(
-                    onPressed: onPressed,
-                    child: const Text('Ver detalles'),
+                  color: theme.primaryColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: ' Cangreburger\n',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'cangreburger con queso',
+                          style: TextStyle(
+                              fontSize: 12, color: Color.fromARGB(255, 201, 200, 200)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Icon(
+                    FontAwesomeIcons.heart,
+                    color: Colors.black,
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              //! precio
+
+              const Padding(
+                padding: EdgeInsets.only(left: 5, bottom: 5),
+                child: Text(
+                  " \$250.00",
+                  style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 5, bottom: 5),
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    color: Colors.orange,
+                  ),
+                  child: const Icon(
+                    FontAwesomeIcons.plus,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              )
+            ])
+          ],
+        ),
       ),
     );
   }

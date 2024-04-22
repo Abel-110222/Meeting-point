@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names, library_private_types_in_public_api
 
-
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PromotionSplashPage extends StatefulWidget {
   const PromotionSplashPage({super.key});
@@ -67,11 +67,13 @@ class _PromotionSplashPageState extends State<PromotionSplashPage> {
                       _controller.nextPage(
                           duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                     } else {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        'view_Home',
-                        (route) => false,
-                      );
+                      kIsWeb
+                          ? Navigator.pushNamed(context, 'View_Home_web')
+                          : Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'view_Home',
+                              (route) => false,
+                            );
                     }
                   },
                   child: Text(currentPage < 2 ? 'Next' : 'Empezar'),

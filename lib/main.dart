@@ -1,7 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:punto_de_reunion/Pages/Splash_Page.dart';
 import 'package:punto_de_reunion/Pages/home.dart';
+import 'package:punto_de_reunion/Pages/home_web.dart';
+import 'package:punto_de_reunion/Pages/splash_page.dart';
 import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 
@@ -10,37 +13,57 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeChanger()),
-        ],
-        child: Builder(
-          builder: (context) {
-            final themeChanger = Provider.of<ThemeChanger>(context);
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'Punto de reunión',
-                theme: themeChanger.isDarkMode
-                    ? ThemeData.dark()
-                    : ThemeData.light().copyWith(
-                        //primaryColor: Colors.blue,
-                        colorScheme: ColorScheme.fromSwatch().copyWith(
-                          primary: Colors.purple,
-                          secondary: Colors.red, // Your accent color
-                        ),
-                      ),
-                initialRoute: '/SplashPageRoute',
-                routes: {
-                  'view_Home': (context) => const Home(),
-                  '/SplashPageRoute': (context) => const SplashPage(),
-                  '/PromotionSplashPageRoute': (context) => const PromotionSplashPage(),
-                });
-          },
-        ));
+      providers: [
+        // Provider(create: (_) => CategoryServices()),
+        // ChangeNotifierProvider(
+        //     create: (_) =>
+        //         CategoriesProvider()), // Crea el proveedor correcto para cargar las categorías
+        ChangeNotifierProvider(create: (_) => ThemeChanger()),
+      ],
+      child: Builder(
+        builder: (context) {
+          final themeChanger = Provider.of<ThemeChanger>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Punto de reunión',
+            theme: themeChanger.isDarkMode
+                ? ThemeData.dark().copyWith(
+                    colorScheme: const ColorScheme.dark().copyWith(
+                      primary: Colors.teal,
+                      secondary: Colors.deepOrange,
+                      surface: Colors.grey[900]!,
+                      background: Colors.black,
+                      error: Colors.red,
+                      onPrimary: Colors.white,
+                      onSecondary: Colors.white,
+                      onSurface: Colors.white,
+                      onBackground: Colors.white,
+                      onError: Colors.white,
+                    ),
+                  )
+                : ThemeData(
+                    brightness: Brightness.light,
+                    colorScheme: const ColorScheme.light().copyWith(
+                      background: Colors.white,
+                      primary: Colors.blue,
+                      secondary: Colors.red,
+                    ),
+                  ),
+            initialRoute: '/SplashPageRoute',
+            routes: {
+              'view_Home': (context) => const Home(),
+              '/SplashPageRoute': (context) => const SplashPage(),
+              '/PromotionSplashPageRoute': (context) => const PromotionSplashPage(),
+              'View_Home_web': (context) => const HomeWeb(),
+            },
+          );
+        },
+      ),
+    );
   }
 }

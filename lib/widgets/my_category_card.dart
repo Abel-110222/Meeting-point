@@ -3,18 +3,26 @@
 import 'package:flutter/material.dart';
 
 class MyCategoryCard extends StatefulWidget {
+  final double widthScreen;
   final String label;
   final void Function() onPressed;
   final Widget image;
   final double width;
   final double height;
+  final bool isSelected;
+  final Color? backColor;
+  final Color? textColor;
 
   const MyCategoryCard({
+    required this.widthScreen,
     required this.onPressed,
     required this.image,
     this.width = 200,
     this.height = 150,
     this.label = '',
+    this.isSelected = false,
+    this.backColor = Colors.white,
+    this.textColor = Colors.black,
     Key? key,
   }) : super(key: key);
 
@@ -27,64 +35,80 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      height: widget.height,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        child: GestureDetector(
-          onTap: widget.onPressed,
-          child: Stack(
-            children: [
-              // Imagen que cubre toda la tarjeta
-              Transform.scale(
-                scale: _isHovered ? 1.1 : 1.0,
-                child: Container(
-                  width: widget.width,
-                  height: widget.height,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: const DecorationImage(
-                      image: AssetImage(
-                          "assets/restaurant-breakfast.jpg"), // Reemplazar con tu ruta de imagen
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Transform.scale(
-                scale: _isHovered ? 1.1 : 1.0,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 200),
-                  opacity: 0.5,
+    // widthScreen para web
+    if (widget.widthScreen >= 600) {
+      return SizedBox(
+        width: widget.width,
+        height: widget.height,
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          child: GestureDetector(
+            onTap: widget.onPressed,
+            child: Stack(
+              children: [
+                // Imagen que cubre toda la tarjeta
+                Transform.scale(
+                  scale: _isHovered ? 1.1 : 1.0,
                   child: Container(
                     width: widget.width,
                     height: widget.height,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.black,
+                      image: const DecorationImage(
+                        image: AssetImage(
+                            "assets/restaurant-breakfast.jpg"), // Reemplazar con tu ruta de imagen
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Color semi-transparente encima de la imagen
-
-              // Texto en el centro de la tarjeta
-              const Center(
-                child: Text(
-                  'Producto',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                Transform.scale(
+                  scale: _isHovered ? 1.1 : 1.0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: 0.5,
+                    child: Container(
+                      width: widget.width,
+                      height: widget.height,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                // Color semi-transparente encima de la imagen
+
+                // Texto en el centro de la tarjeta
+                const Center(
+                  child: Text(
+                    'Producto',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        width: 85,
+        height: 85,
+        decoration: BoxDecoration(
+          color: widget.backColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Icon(Icons.fastfood, color: widget.textColor),
+          Text("Food", style: TextStyle(color: widget.textColor))
+        ]),
+      );
+    }
   }
 }

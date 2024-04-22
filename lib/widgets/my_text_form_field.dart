@@ -137,6 +137,8 @@ class MyTextFormField extends StatelessWidget {
             cursorColor: const Color(0xff9f9f9f),
             maxLength: maxLength,
             decoration: InputDecoration(
+              prefixIcon: suffixIcon,
+              // suffixIcon: suffixIcon,
               border: showUnderLine ? null : InputBorder.none,
               hintText: '',
               isCollapsed: false,
@@ -145,10 +147,10 @@ class MyTextFormField extends StatelessWidget {
               counterText: counterText as bool ? null : '',
               labelStyle: TextStyle(
                 fontSize: fontSizeLabel,
+                color: const Color.fromARGB(255, 165, 162, 162),
               ),
               floatingLabelStyle: const TextStyle(fontSize: 12),
               //icon: icon,
-              // suffixIcon: suffixIcon,
             ),
             obscureText: obscureText,
             keyboardType: keyboardType,
@@ -175,10 +177,10 @@ class MyTextFormField extends StatelessWidget {
             onFieldSubmitted: onFieldSubmitted,
             onTap: onTap,
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: suffixIcon,
-          ),
+          // Align(
+          //   alignment: Alignment.centerRight,
+          //   child: suffixIcon,
+          // ),
         ],
       ),
     );
