@@ -9,6 +9,7 @@ import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/models/categories_model.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_category_card.dart';
+import 'package:punto_de_reunion/widgets/my_product_card.dart';
 import 'package:punto_de_reunion/widgets/my_product_card_mobil.dart';
 import 'package:punto_de_reunion/widgets/my_text_form_field.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -101,12 +102,6 @@ class _HomeState extends State<Home> {
   //   }
   // }
 
-  void _handleMenuButtonPressed() {
-    // NOTICE: Manage Advanced Drawer state through the Controller.
-    // _advancedDrawerController.value = AdvancedDrawerValue.visible();
-    _advancedDrawerController.showDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
@@ -181,11 +176,10 @@ class _HomeState extends State<Home> {
               controller: _scrollController,
               slivers: <Widget>[
                 SliverAppBar(
-                  iconTheme: const IconThemeData(color: Colors.black),
-                  scrolledUnderElevation: 0,
-                  backgroundColor: Colors.white,
+                  actions: const [SizedBox(height: 0, width: 0)],
+                  scrolledUnderElevation: 3,
                   automaticallyImplyLeading: false,
-                  expandedHeight: 125,
+                  expandedHeight: 70,
                   pinned: true,
                   floating: false,
                   elevation: 0,
@@ -203,31 +197,10 @@ class _HomeState extends State<Home> {
                             opacity: opacity,
                             child: null // Texto que puede desaparecer gradualmente
                             ),
-                        background: Column(
+                        background: const Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 19, bottom: 10),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Hola Abel\n',
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: textColor),
-                                    ),
-                                    TextSpan(
-                                      text: '¿Qué vas a ordenar hoy?',
-                                      style: TextStyle(fontSize: 18, color: textColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                          children: [],
                         ),
                       );
                     },
@@ -236,34 +209,71 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 56, 56, 56),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          width: 50,
-                          height: 50,
-                          child: !kIsWeb
-                              ? IconButton(
-                                  onPressed: _handleMenuButtonPressed,
-                                  icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                                    valueListenable: _advancedDrawerController,
-                                    builder: (_, value, __) {
-                                      return AnimatedSwitcher(
-                                        duration: const Duration(milliseconds: 250),
-                                        child: Icon(
-                                          value.visible ? Icons.clear : Icons.menu,
-                                          key: ValueKey<bool>(value.visible),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                )
-                              : IconButton(
-                                  onPressed: () {
-                                    _scaffoldKey.currentState?.openDrawer();
-                                  },
-                                  icon: const Icon(Icons.menu)),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Builder(
+                                builder: (BuildContext context) {
+                                  return IconButton(
+                                      onPressed: () {
+                                        _scaffoldKey.currentState?.openDrawer();
+                                      },
+                                      icon: const Icon(Icons.menu));
+                                },
+                              ),
+                            ),
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     color: const Color.fromARGB(255, 56, 56, 56),
+                            //     borderRadius: BorderRadius.circular(10),
+                            //   ),
+                            //   width: 50,
+                            //   height: 50,
+                            //   child: !kIsWeb
+                            //       ? IconButton(
+                            //           onPressed: _handleMenuButtonPressed,
+                            //           icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                            //             valueListenable: _advancedDrawerController,
+                            //             builder: (_, value, __) {
+                            //               return AnimatedSwitcher(
+                            //                 duration: const Duration(milliseconds: 250),
+                            //                 child: Icon(
+                            //                   value.visible ? Icons.clear : Icons.menu,
+                            //                   key: ValueKey<bool>(value.visible),
+                            //                 ),
+                            //               );
+                            //             },
+                            //           ),
+                            //         )
+                            //       : IconButton(
+                            //           onPressed: () {
+                            //             _scaffoldKey.currentState?.openDrawer();
+                            //           },
+                            //           icon: const Icon(Icons.menu)),
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Hola Abel\n',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: textColor),
+                                    ),
+                                    TextSpan(
+                                      text: '¿Qué vas a ordenar hoy?',
+                                      style: TextStyle(fontSize: 15, color: textColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           width: 50,
@@ -283,51 +293,58 @@ class _HomeState extends State<Home> {
                     ),
                   ]),
                 ),
-                SliverAppBar(
-                  automaticallyImplyLeading: false,
-                  shadowColor: textColor,
-                  elevation: 0,
-                  title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ResponsiveGridRow(
-                          children: <ResponsiveGridCol>[
-                            ResponsiveGridCol(
-                              lg: 6,
-                              xs: 12,
-                              child: SizedBox(
-                                height: 50,
-                                width: resp.widthPercent(30),
-                                child: MyTextFormField(
-                                  label: 'Buscar',
-                                  maxLength: 25,
-                                  fontSize: 14,
-                                  fontSizeLabel: 14,
-                                  paddingBotton: 0,
-                                  borderCircularSize: 10,
-                                  borderWrap: true,
-                                  backColor: backgroundColor,
-                                  underLineColor: Colors.grey,
-                                  counterText: false,
-                                  textEditingController: findControllerActividades,
-                                  showUnderLine: false,
-                                  suffixIcon: const Icon(FontAwesomeIcons.magnifyingGlass,
-                                      color: Colors.grey),
-                                  validator: (value) {
-                                    return null;
-                                  },
-                                  onChanged: (text) {
-                                    setState(() {});
-                                  },
+                SliverToBoxAdapter(
+                  child: Container(
+                    color: backgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 19, bottom: 10, right: 19, top: 10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ResponsiveGridRow(
+                              children: <ResponsiveGridCol>[
+                                ResponsiveGridCol(
+                                  lg: 6,
+                                  xs: 12,
+                                  child: SizedBox(
+                                    height: 50,
+                                    width: resp.widthPercent(30),
+                                    child: MyTextFormField(
+                                      label: 'Buscar',
+                                      maxLength: 25,
+                                      fontSize: 14,
+                                      fontSizeLabel: 14,
+                                      paddingBotton: 0,
+                                      borderCircularSize: 10,
+                                      borderWrap: true,
+                                      backColor: backgroundColor,
+                                      underLineColor: Colors.grey,
+                                      counterText: false,
+                                      textEditingController: findControllerActividades,
+                                      showUnderLine: false,
+                                      suffixIcon: const Icon(FontAwesomeIcons.magnifyingGlass,
+                                          color: Colors.grey),
+                                      validator: (value) {
+                                        return null;
+                                      },
+                                      onChanged: (text) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ]),
+                          ]),
+                    ),
+                  ),
                 ),
                 SliverAppBar(
+                    scrolledUnderElevation: 0,
+                    backgroundColor: backgroundColor,
+                    actions: const [SizedBox(height: 0, width: 0)],
+                    iconTheme: const IconThemeData(color: Colors.black),
                     pinned: true,
                     floating: false,
                     automaticallyImplyLeading: false,
@@ -427,6 +444,25 @@ class _HomeState extends State<Home> {
                                         ),
                                       );
                                     },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 235,
+                                  child: Center(
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 8,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 15, right: 5, top: 15),
+                                          child: MyProductCard(
+                                            onPressed: () {},
+                                            image: Image.asset('assets/hamburger-and-fries.jpg'),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ],

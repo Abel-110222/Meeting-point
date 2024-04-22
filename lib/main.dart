@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
                       primary: Colors.teal,
                       secondary: Colors.deepOrange,
                       surface: Colors.grey[900]!,
-                      background: Colors.black,
                       error: Colors.red,
                       onPrimary: Colors.white,
                       onSecondary: Colors.white,
@@ -49,8 +48,8 @@ class MyApp extends StatelessWidget {
                 : ThemeData(
                     brightness: Brightness.light,
                     colorScheme: const ColorScheme.light().copyWith(
-                      background: Colors.white,
                       primary: Colors.blue,
+                      surface: Colors.white60,
                       secondary: Colors.red,
                     ),
                   ),

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PromotionSplashPage extends StatefulWidget {
   const PromotionSplashPage({super.key});
@@ -67,9 +66,8 @@ class _PromotionSplashPageState extends State<PromotionSplashPage> {
                       _controller.nextPage(
                           duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                     } else {
-                      kIsWeb
-                          ? Navigator.pushNamed(context, 'View_Home_web')
-                          : Navigator.pushNamedAndRemoveUntil(
+                    
+                           Navigator.pushNamedAndRemoveUntil(
                               context,
                               'view_Home',
                               (route) => false,
