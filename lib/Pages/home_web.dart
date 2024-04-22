@@ -9,7 +9,6 @@ import 'package:punto_de_reunion/Pages/organizations_screen.dart';
 import 'package:punto_de_reunion/Pages/products_screen.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/models/categories_model.dart';
-import 'package:punto_de_reunion/services/category_provider.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_category_card.dart';
 import 'package:punto_de_reunion/widgets/my_product_card.dart';
