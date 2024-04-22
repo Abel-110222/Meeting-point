@@ -83,7 +83,7 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
                 // Texto en el centro de la tarjeta
                 const Center(
                   child: Text(
-                    'Producto',
+                    'MOPRI',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,

@@ -327,6 +327,7 @@ class _HomeState extends State<Home> {
                         ),
                       ]),
                 ),
+                
                 SliverAppBar(
                     pinned: true,
                     floating: false,
