@@ -16,7 +16,6 @@ import 'package:punto_de_reunion/widgets/my_product_card_mobil.dart';
 import 'package:punto_de_reunion/widgets/my_text_form_field.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Home extends StatefulWidget {
   static String routeName = 'view_Home';
@@ -163,7 +162,7 @@ class _HomeState extends State<Home> {
             // ],
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
-          drawer: kIsWeb ? buildDrawerWeb(context, isDarkTheme) : buildDrawer(context),
+          drawer: buildDrawerWeb(context, isDarkTheme),
           child: Scaffold(
             persistentFooterAlignment: AlignmentDirectional.bottomCenter,
             resizeToAvoidBottomInset: false,
@@ -172,7 +171,7 @@ class _HomeState extends State<Home> {
             endDrawer: const Drawer(),
             drawerScrimColor: Colors.transparent, // Hace que el scrim del Drawer sea transparente
             appBar: null,
-            drawer: kIsWeb ? buildDrawerWeb(context, isDarkTheme) : buildDrawer(context),
+            drawer: buildDrawerWeb(context, isDarkTheme),
             key: _scaffoldKey,
             body: CustomScrollView(
               controller: _scrollController,
@@ -277,7 +276,6 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
-                        Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
                         SizedBox(
                           width: 50,
                           height: 50,
@@ -433,6 +431,8 @@ class _HomeState extends State<Home> {
                             color: backgroundColor,
                             child: Column(
                               children: [
+                                Text('${resp.width}x${resp.height}',
+                                    style: const TextStyle(fontSize: 12)),
                                 const SizedBox(height: 20),
                                 Align(
                                   child: Padding(
@@ -831,6 +831,61 @@ class FilterCard extends StatelessWidget {
                   Icon(icon, color: colorText),
                   const SizedBox(width: 5),
                   Text(title ?? "", style: TextStyle(color: colorText)),
+                ],
+              ))),
+    );
+  }
+}
+
+class FilterCardMyProduct extends StatelessWidget {
+  final String? title;
+  final Widget? icon;
+  final VoidCallback onTap;
+  final Color? backgraundColor;
+  final Color? colorText;
+  final bool? isActive;
+
+  const FilterCardMyProduct({
+    super.key,
+    this.title = "",
+    this.icon,
+    required this.onTap,
+    this.backgraundColor = Colors.white,
+    this.colorText = Colors.black,
+    this.isActive = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+          elevation: isActive! ? 2 : 0.3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: isActive! ? backgraundColor : Colors.transparent,
+              ),
+              height: 40,
+              width: 100,
+              padding: const EdgeInsets.all(2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: isActive! ? Colors.orange : Colors.transparent,
+                      ),
+                      child: icon),
+                  const SizedBox(width: 3),
+                  Text(title ?? "",
+                      style: TextStyle(color: isActive! ? colorText : backgraundColor)),
                 ],
               ))),
     );
