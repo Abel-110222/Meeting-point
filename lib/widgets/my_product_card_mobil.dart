@@ -8,6 +8,7 @@ class MyProductCardMobil extends StatelessWidget {
   final void Function() onPressed;
   final Widget? image;
   final Color backColor;
+  final bool isCarrito;
 
   const MyProductCardMobil({
     super.key,
@@ -15,6 +16,7 @@ class MyProductCardMobil extends StatelessWidget {
     required this.onPressed,
     required this.image,
     this.backColor = Colors.white,
+    this.isCarrito = false,
   });
 
   @override
@@ -25,6 +27,8 @@ class MyProductCardMobil extends StatelessWidget {
 
     return Card(
       child: Container(
+        width: 300,
+        height: 180,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -35,17 +39,18 @@ class MyProductCardMobil extends StatelessWidget {
           children: [
             // Imagen a la izquierda
             Container(
-              width: 100, // Ancho de la imagen
-              height: 235, // Alto de la tarjeta
+              width: 130, // Ancho de la imagen
+              height: 150, // Alto de la tarjeta
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/hamburger-and-fries.jpg"),
                 ),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
               ),
             ),
             const SizedBox(width: 10), // Espacio entre la imagen y la información
@@ -89,9 +94,9 @@ class MyProductCardMobil extends StatelessWidget {
                   ),
 
                   // Precio
-                  const Text(
-                    " \$250.00",
-                    style: TextStyle(
+                  Text(
+                    !isCarrito ? " \$250.00" : "",
+                    style: const TextStyle(
                       fontSize: 15,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -100,22 +105,49 @@ class MyProductCardMobil extends StatelessWidget {
                   const SizedBox(height: 5), // Espacio entre el precio y el botón
 
                   // Botón
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.orange,
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                  ),
                 ],
               ),
             ),
+            !isCarrito
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: Icon(
+                          FontAwesomeIcons.heart,
+                          color: Colors.red,
+                          size: 15,
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.orange,
+                        ),
+                        child: const Icon(
+                          FontAwesomeIcons.plus,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Text("x2",
+                            style: TextStyle(
+                                color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  )
           ],
         ),
       ),

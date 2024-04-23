@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -275,6 +277,7 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
+                        Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
                         SizedBox(
                           width: 50,
                           height: 50,
@@ -341,6 +344,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SliverAppBar(
+                    expandedHeight: 110,
                     scrolledUnderElevation: 0,
                     backgroundColor: backgroundColor,
                     actions: const [SizedBox(height: 0, width: 0)],
@@ -350,38 +354,64 @@ class _HomeState extends State<Home> {
                     automaticallyImplyLeading: false,
                     shadowColor: textColor,
                     elevation: 0,
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FilterCard(
-                          title: 'Precio',
-                          icon: Icons.attach_money,
-                          onTap: () {
-                            // Acción al seleccionar el filtro de precio
-                          },
-                        ),
-                        FilterCard(
-                          title: 'Fecha',
-                          icon: Icons.calendar_today,
-                          onTap: () {
-                            // Acción al seleccionar el filtro de fecha
-                          },
-                        ),
-                        FilterCard(
-                          title: 'Ubicación',
-                          icon: Icons.location_on,
-                          onTap: () {
-                            // Acción al seleccionar el filtro de ubicación
-                          },
-                        ),
-                        FilterCard(
-                          title: 'Categoría',
-                          icon: Icons.category,
-                          onTap: () {
-                            // Acción al seleccionar el filtro de categoría
-                          },
-                        ),
-                      ],
+                    title: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            elevation: 3,
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: textColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(FontAwesomeIcons.arrowUpZA, color: backgroundColor),
+                            ),
+                          ),
+                          FilterCard(
+                            backgraundColor: textColor,
+                            colorText: backgroundColor,
+                            title: 'Precio',
+                            icon: Icons.attach_money,
+                            onTap: () {
+                              // Acción al seleccionar el filtro de precio
+                            },
+                          ),
+                          FilterCard(
+                            backgraundColor: textColor,
+                            colorText: backgroundColor,
+                            title: 'Fecha',
+                            icon: Icons.calendar_today,
+                            onTap: () {
+                              // Acción al seleccionar el filtro de fecha
+                            },
+                          ),
+                          FilterCard(
+                            backgraundColor: textColor,
+                            colorText: backgroundColor,
+                            title: 'Ubicación',
+                            icon: Icons.location_on,
+                            onTap: () {
+                              // Acción al seleccionar el filtro de ubicación
+                            },
+                          ),
+                          FilterCard(
+                            backgraundColor: textColor,
+                            colorText: backgroundColor,
+                            title: 'Categoría',
+                            icon: Icons.category,
+                            onTap: () {
+                              // Acción al seleccionar el filtro de categoría
+                            },
+                          ),
+                        ],
+                      ),
                     )),
                 SliverToBoxAdapter(
                   child: isLoading
@@ -434,8 +464,8 @@ class _HomeState extends State<Home> {
                                       return Padding(
                                         padding: const EdgeInsets.only(left: 30, right: 5),
                                         child: MyCategoryCard(
-                                          backColor: textColor,
-                                          textColor: backgroundColor,
+                                          backColor: backgroundColor,
+                                          textColor: textColor,
                                           width: 300,
                                           height: 250,
                                           onPressed: () {},
@@ -446,43 +476,83 @@ class _HomeState extends State<Home> {
                                     },
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 235,
-                                  child: Center(
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: 8,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15, right: 5, top: 15),
-                                          child: MyProductCard(
-                                            onPressed: () {},
-                                            image: Image.asset('assets/hamburger-and-fries.jpg'),
+                                resp.width >= 700
+                                    ? SizedBox(
+                                        height: 235,
+                                        child: Center(
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 8,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15, right: 5, top: 15),
+                                                child: MyProductCard(
+                                                  onPressed: () {},
+                                                  image:
+                                                      Image.asset('assets/hamburger-and-fries.jpg'),
+                                                ),
+                                              );
+                                            },
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
+                                        ),
+                                      )
+                                    : SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        child: Column(
+                                          children: List.generate(
+                                            4 ~/
+                                                2, // Dividir el número total de elementos entre 2 para obtener la cantidad de filas
+                                            (rowIndex) {
+                                              return Row(
+                                                children: List.generate(
+                                                  MediaQuery.of(context).size.width >= 600
+                                                      ? 2
+                                                      : 1, // Verificar el ancho de la pantalla
+                                                  (columnIndex) {
+                                                    final index = rowIndex * 2 + columnIndex;
+                                                    return SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context).size.width >= 600
+                                                              ? resp.width / 2
+                                                              : resp.width,
+                                                      height: 180,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(
+                                                            left: 15, right: 5, top: 15),
+                                                        child: MyProductCardMobil(
+                                                          isCarrito: true,
+                                                          onPressed: () {},
+                                                          image: Image.asset(
+                                                              'assets/hamburger-and-fries.jpg'),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                // ignore: prefer_const_constructors
+                                SizedBox(height: 20),
+                                Visibility(
+                                  visible: resp.width >= 900,
+                                  child: SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Container(
+                                        height: 125,
+                                        width: resp.width,
+                                        child: Text(
+                                            '© 2023 Punto de Reunión. Todos los derechos reservados.',
+                                            style: TextStyle(color: textColor)),
+                                      )),
+                                )
                               ],
                             ),
                           ),
                         ),
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 5, top: 15),
-                        child: MyProductCardMobil(
-                          onPressed: () {},
-                          image: Image.asset('assets/hamburger-and-fries.jpg'),
-                        ),
-                      );
-                    },
-                    childCount: 10,
-                  ),
                 ),
               ],
             ),
@@ -723,15 +793,19 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class FilterCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
+  final String? title;
+  final IconData? icon;
   final VoidCallback onTap;
+  final Color? backgraundColor;
+  final Color? colorText;
 
   const FilterCard({
     super.key,
-    required this.title,
+    this.title = "",
     required this.icon,
     required this.onTap,
+    this.backgraundColor = Colors.white,
+    this.colorText = Colors.black,
   });
 
   @override
@@ -739,25 +813,26 @@ class FilterCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon),
-              const SizedBox(height: 4),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 12),
-              ),
-            ],
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-      ),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: backgraundColor,
+              ),
+              height: 40,
+              width: 115,
+              padding: const EdgeInsets.all(2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, color: colorText),
+                  const SizedBox(width: 5),
+                  Text(title ?? "", style: TextStyle(color: colorText)),
+                ],
+              ))),
     );
   }
 }

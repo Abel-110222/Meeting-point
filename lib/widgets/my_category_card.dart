@@ -99,7 +99,7 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
     } else {
       return Container(
         width: 85,
-        height: 85,
+        height: 100,
         decoration: BoxDecoration(
           color: widget.backColor,
           borderRadius: BorderRadius.circular(10),
