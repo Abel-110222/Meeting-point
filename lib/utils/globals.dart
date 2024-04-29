@@ -65,7 +65,7 @@ var langNoticePrivacy = <String, Map<String, String>>{
 //
 //! Publicaciones
 //String urlAPIs = 'https://webapisilodisa.administraflotilla.com';
-String urlAPIs = 'http://kananfleet.mx:7001';
+String urlAPIs = 'https://punto-de-reunion.vercel.app/api';
 //
 //String urlAPIs = 'http://26.222.11.66/kf_api_core';
 //String urlAPIs = 'https://kananfleet2.administraflotilla.com';

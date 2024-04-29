@@ -6,8 +6,8 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:punto_de_reunion/Pages/home.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
+import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_organization_card.dart';
 
 class OrganizationsScreen extends StatefulWidget {
@@ -124,7 +124,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       isActive: true,
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
@@ -133,7 +133,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                         // Acción al seleccionar el filtro de categoría
                                       },
                                     ),
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
                                       title: 'Categoría',
@@ -141,7 +141,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                         // Acción al seleccionar el filtro de categoría
                                       },
                                     ),
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
                                       title: 'Categoría',

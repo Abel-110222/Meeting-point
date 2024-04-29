@@ -81,10 +81,10 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
                 // Color semi-transparente encima de la imagen
 
                 // Texto en el centro de la tarjeta
-                const Center(
+                 Center(
                   child: Text(
-                    'Producto',
-                    style: TextStyle(
+                    widget.label,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
         ),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.fastfood, color: widget.textColor),
-          Text("Food", style: TextStyle(color: widget.textColor))
+          Text(widget.label, style: TextStyle(color: widget.textColor))
         ]),
       );
     }

@@ -72,8 +72,7 @@ class MyProductCard extends StatelessWidget {
                         ),
                         TextSpan(
                           text: 'cangreburger con queso',
-                          style: TextStyle(
-                              fontSize: 12, color: Color.fromARGB(255, 201, 200, 200)),
+                          style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 201, 200, 200)),
                         ),
                       ],
                     ),

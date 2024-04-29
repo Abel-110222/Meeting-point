@@ -8,14 +8,17 @@ import 'package:punto_de_reunion/Pages/categories_screen.dart';
 import 'package:punto_de_reunion/Pages/organizations_screen.dart';
 import 'package:punto_de_reunion/Pages/products_screen.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
-import 'package:punto_de_reunion/models/categories_model.dart';
+import 'package:punto_de_reunion/models/category/categories_model.dart';
+import 'package:punto_de_reunion/utils/struct_response.dart';
+import 'package:punto_de_reunion/services_providers/category_services.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_category_card.dart';
+import 'package:punto_de_reunion/widgets/my_filter_card.dart';
 import 'package:punto_de_reunion/widgets/my_product_card.dart';
 import 'package:punto_de_reunion/widgets/my_product_card_mobil.dart';
 import 'package:punto_de_reunion/widgets/my_text_form_field.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Home extends StatefulWidget {
   static String routeName = 'view_Home';
@@ -34,7 +37,7 @@ class _HomeState extends State<Home> {
   bool showCard = true;
   bool showWriter = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _advancedDrawerController = AdvancedDrawerController();
+  bool showButton = false;
 
   ///
   ///!  *************************************************************
@@ -51,15 +54,12 @@ class _HomeState extends State<Home> {
   //*BUSCADOR SECUNDARIO
   TextEditingController respuestaController = TextEditingController();
   TextEditingController findControllerActividades = TextEditingController();
+  final AutoScrollController _autoScrollController = AutoScrollController();
 
   ///
   ///!  *************************************************************
   ///!  FOCUS NODE
   ///!  *************************************************************
-  ///
-  ///
-  ///FocusNode bloqueoEditarFocusNode = FocusNode();
-  FocusNode respuestaFocusNode = FocusNode();
 
   //!-------------------------------
   //! Listas
@@ -71,10 +71,11 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _autoScrollController.addListener(_scrollListener);
     _scrollController.addListener(() {
       setState(() {});
     });
-    // loadCategories();
+    loadCategories();
   }
 
   ///!  *************************************************************
@@ -86,36 +87,50 @@ class _HomeState extends State<Home> {
     //general
   }
 
-  // Future<void> loadCategories() async {
-  //   try {
-  //     final categoryProvider = Provider.of<CategoryServices>(context, listen: false);
-  //     final loadedCategories = await categoryProvider.getCategories();
-  //     setState(() {
-  //       categories = loadedCategories;
-  //     });
-  //   } catch (e) {
-  //   } finally {
-  //     if (mounted) {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //   }
-  // }
+  void _scrollListener() {
+    if (_autoScrollController.offset >= 150) {
+      // Cambia 200 a la cantidad de desplazamiento que desees
+      setState(() {
+        showButton = true;
+      });
+    } else {
+      setState(() {
+        showButton = false;
+      });
+    }
+  }
+
+  Future<void> loadCategories() async {
+    StructResponse serviceResponse = StructResponse();
+
+    try {
+      final categoryProvider = Provider.of<CategoryServices>(context, listen: false);
+      final loadedCategories = await categoryProvider.getCategories();
+      setState(() {
+        categories = loadedCategories.categories!;
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
-
+    // double myWidthWork = (resp.widthPercent(100));
     // Obtener el tema actual
     final theme = Theme.of(context);
-    // Verificar si el tema es oscuro
+    //! -----------------------------------
+    //! VARIBLE PARA SABER EL TEMA ACTUAL
     final bool isDarkTheme = theme.brightness == Brightness.dark;
-
-    // Obtener los colores del tema
+    //! -----------------------------------
+    //! COLORES DETEMA ACTUAL
     final backgroundColor = theme.colorScheme.background;
     final textColor = theme.textTheme.bodyLarge!.color;
-    // double myWidthWork = (resp.widthPercent(100));
 
     if (isLoading) {
       return Center(
@@ -132,232 +147,175 @@ class _HomeState extends State<Home> {
         ),
       );
     } else {
-      return AdvancedDrawer(
-          backdrop: Container(
-            width: 300,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.blueGrey, Colors.blueGrey.withOpacity(0.2)],
-              ),
-            ),
-          ),
-          controller: _advancedDrawerController,
-          animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 300),
-          animateChildDecoration: true,
-          rtlOpening: false,
-          // openScale: 1.0,
-          disabledGestures: false,
-          childDecoration: const BoxDecoration(
-            // NOTICE: Uncomment if you want to add shadow behind the page.
-            // Keep in mind that it may cause animation jerks.
-            // boxShadow: <BoxShadow>[
-            //   BoxShadow(
-            //     color: Colors.black12,
-            //     blurRadius: 0.0,
-            //   ),
-            // ],
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
-          drawer: buildDrawerWeb(context, isDarkTheme),
-          child: Scaffold(
-            persistentFooterAlignment: AlignmentDirectional.bottomCenter,
-            resizeToAvoidBottomInset: false,
-
-            extendBodyBehindAppBar: true,
-            endDrawer: const Drawer(),
-            drawerScrimColor: Colors.transparent, // Hace que el scrim del Drawer sea transparente
-            appBar: null,
-            drawer: buildDrawerWeb(context, isDarkTheme),
-            key: _scaffoldKey,
-            body: CustomScrollView(
-              controller: _scrollController,
-              slivers: <Widget>[
-                SliverAppBar(
-                  actions: const [SizedBox(height: 0, width: 0)],
-                  scrolledUnderElevation: 3,
-                  automaticallyImplyLeading: false,
-                  expandedHeight: 70,
-                  pinned: true,
-                  floating: false,
-                  elevation: 0,
-                  flexibleSpace: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
-                      final double offset =
-                          constraints.biggest.height; // Obtener el desplazamiento actual
-                      double opacity =
-                          1 - (offset / 200); // Calcular la opacidad basada en el desplazamiento
-                      opacity = opacity.clamp(
-                          0.0, 1.0); // Asegurar que la opacidad esté dentro del rango válido
-                      return FlexibleSpaceBar(
-                        title: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 250),
-                            opacity: opacity,
-                            child: null // Texto que puede desaparecer gradualmente
-                            ),
-                        background: const Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [],
-                        ),
-                      );
-                    },
-                  ),
-                  title: Column(children: [
+      return Scaffold(
+        floatingActionButton: showButton
+            ? FloatingActionButton(
+                backgroundColor: textColor,
+                onPressed: () {
+                  _autoScrollController.animateTo(
+                    0.0, // Posición a la que deseas desplazarte (inicio de la lista)
+                    duration: const Duration(milliseconds: 500), // Duración de la animación
+                    curve: Curves.easeInOut, // Curva de animación
+                  );
+                  setState(() {});
+                },
+                child: Icon(FontAwesomeIcons.arrowUp, color: backgroundColor),
+              )
+            : null,
+        persistentFooterAlignment: AlignmentDirectional.bottomCenter,
+        resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        endDrawer: const Drawer(),
+        drawerScrimColor: Colors.transparent, // Hace que el scrim del Drawer sea transparente
+        appBar: null,
+        drawer: buidDrawer(context, isDarkTheme),
+        key: _scaffoldKey,
+        body: CustomScrollView(
+          controller: _autoScrollController,
+          slivers: <Widget>[
+            //! SLIVER APP BAR Drawer - Nombre de usuario - Carrito
+            SliverAppBar(
+              actions: const [SizedBox(height: 0, width: 0)],
+              scrolledUnderElevation: 3,
+              automaticallyImplyLeading: false,
+              expandedHeight: 70,
+              pinned: true,
+              floating: false,
+              elevation: 0,
+              title: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //! DRAWER
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Builder(
-                                builder: (BuildContext context) {
-                                  return IconButton(
-                                      onPressed: () {
-                                        _scaffoldKey.currentState?.openDrawer();
-                                      },
-                                      icon: const Icon(Icons.menu));
-                                },
-                              ),
-                            ),
-                            // Container(
-                            //   decoration: BoxDecoration(
-                            //     color: const Color.fromARGB(255, 56, 56, 56),
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   width: 50,
-                            //   height: 50,
-                            //   child: !kIsWeb
-                            //       ? IconButton(
-                            //           onPressed: _handleMenuButtonPressed,
-                            //           icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                            //             valueListenable: _advancedDrawerController,
-                            //             builder: (_, value, __) {
-                            //               return AnimatedSwitcher(
-                            //                 duration: const Duration(milliseconds: 250),
-                            //                 child: Icon(
-                            //                   value.visible ? Icons.clear : Icons.menu,
-                            //                   key: ValueKey<bool>(value.visible),
-                            //                 ),
-                            //               );
-                            //             },
-                            //           ),
-                            //         )
-                            //       : IconButton(
-                            //           onPressed: () {
-                            //             _scaffoldKey.currentState?.openDrawer();
-                            //           },
-                            //           icon: const Icon(Icons.menu)),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Hola Abel\n',
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: textColor),
-                                    ),
-                                    TextSpan(
-                                      text: '¿Qué vas a ordenar hoy?',
-                                      style: TextStyle(fontSize: 15, color: textColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           width: 50,
                           height: 50,
                           child: Builder(
                             builder: (BuildContext context) {
                               return IconButton(
-                                onPressed: () {
-                                  Scaffold.of(context).openEndDrawer(); // Abre el EndDrawer
-                                },
-                                icon: const Icon(FontAwesomeIcons.cartShopping),
-                              );
+                                  onPressed: () {
+                                    _scaffoldKey.currentState?.openDrawer();
+                                  },
+                                  icon: const Icon(Icons.menu));
                             },
+                          ),
+                        ),
+                        //! NOMBRE USUARIO
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Hola Abel\n',
+                                  style: TextStyle(
+                                      fontSize: 25, fontWeight: FontWeight.bold, color: textColor),
+                                ),
+                                TextSpan(
+                                  text: '¿Qué vas a ordenar hoy?',
+                                  style: TextStyle(fontSize: 15, color: textColor),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ]),
-                ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    color: backgroundColor,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 19, bottom: 10, right: 19, top: 10),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ResponsiveGridRow(
-                              children: <ResponsiveGridCol>[
-                                ResponsiveGridCol(
-                                  lg: 6,
-                                  xs: 12,
-                                  child: SizedBox(
-                                    height: 50,
-                                    width: resp.widthPercent(30),
-                                    child: MyTextFormField(
-                                      label: 'Buscar',
-                                      maxLength: 25,
-                                      fontSize: 14,
-                                      fontSizeLabel: 14,
-                                      paddingBotton: 0,
-                                      borderCircularSize: 10,
-                                      borderWrap: true,
-                                      backColor: backgroundColor,
-                                      underLineColor: Colors.grey,
-                                      counterText: false,
-                                      textEditingController: findControllerActividades,
-                                      showUnderLine: false,
-                                      suffixIcon: const Icon(FontAwesomeIcons.magnifyingGlass,
-                                          color: Colors.grey),
-                                      validator: (value) {
-                                        return null;
-                                      },
-                                      onChanged: (text) {
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
+                    //! CARRITO
+                    SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Builder(
+                        builder: (BuildContext context) {
+                          return IconButton(
+                            onPressed: () {
+                              Scaffold.of(context).openEndDrawer(); // Abre el EndDrawer
+                            },
+                            icon: const Icon(FontAwesomeIcons.cartShopping),
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                SliverAppBar(
-                    expandedHeight: 110,
-                    scrolledUnderElevation: 0,
-                    backgroundColor: backgroundColor,
-                    actions: const [SizedBox(height: 0, width: 0)],
-                    iconTheme: const IconThemeData(color: Colors.black),
-                    pinned: true,
-                    floating: false,
-                    automaticallyImplyLeading: false,
-                    shadowColor: textColor,
-                    elevation: 0,
-                    title: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
+              ]),
+            ),
+            //! SLIVER BUSCADOR  ESCROLLABLE
+            SliverToBoxAdapter(
+              child: Container(
+                color: backgroundColor,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, bottom: 10, right: 19, top: 10),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
+                        ResponsiveGridRow(
+                          children: <ResponsiveGridCol>[
+                            ResponsiveGridCol(
+                              lg: 6,
+                              xs: 12,
+                              child: SizedBox(
+                                height: 50,
+                                width: resp.widthPercent(30),
+                                child: MyTextFormField(
+                                  label: 'Buscar',
+                                  maxLength: 25,
+                                  fontSize: 14,
+                                  fontSizeLabel: 14,
+                                  paddingBotton: 0,
+                                  borderCircularSize: 10,
+                                  borderWrap: true,
+                                  backColor: backgroundColor,
+                                  underLineColor: Colors.grey,
+                                  counterText: false,
+                                  textEditingController: findControllerActividades,
+                                  showUnderLine: false,
+                                  suffixIcon: const Icon(FontAwesomeIcons.magnifyingGlass,
+                                      color: Colors.grey),
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                  onChanged: (text) {
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+            //! SLIVER APP BAR FILTROS FIJOS
+            SliverAppBar(
+                expandedHeight: 110,
+                scrolledUnderElevation: 0,
+                backgroundColor: backgroundColor,
+                actions: const [SizedBox(height: 0, width: 0)],
+                iconTheme: const IconThemeData(color: Colors.black),
+                pinned: true,
+                floating: false,
+                automaticallyImplyLeading: false,
+                shadowColor: textColor,
+                elevation: 0,
+                title: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  //? tittedBox temporal ver su comportamiento
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.fill,
+                          child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -372,265 +330,207 @@ class _HomeState extends State<Home> {
                               child: Icon(FontAwesomeIcons.arrowUpZA, color: backgroundColor),
                             ),
                           ),
-                          FilterCard(
-                            backgraundColor: textColor,
-                            colorText: backgroundColor,
-                            title: 'Precio',
-                            icon: Icons.attach_money,
-                            onTap: () {
-                              // Acción al seleccionar el filtro de precio
-                            },
-                          ),
-                          FilterCard(
-                            backgraundColor: textColor,
-                            colorText: backgroundColor,
-                            title: 'Fecha',
-                            icon: Icons.calendar_today,
-                            onTap: () {
-                              // Acción al seleccionar el filtro de fecha
-                            },
-                          ),
-                          FilterCard(
-                            backgraundColor: textColor,
-                            colorText: backgroundColor,
-                            title: 'Ubicación',
-                            icon: Icons.location_on,
-                            onTap: () {
-                              // Acción al seleccionar el filtro de ubicación
-                            },
-                          ),
-                          FilterCard(
-                            backgraundColor: textColor,
-                            colorText: backgroundColor,
-                            title: 'Categoría',
-                            icon: Icons.category,
-                            onTap: () {
-                              // Acción al seleccionar el filtro de categoría
-                            },
-                          ),
+                        ),
+                        FilterCard(
+                          backgraundColor: textColor,
+                          colorText: backgroundColor,
+                          title: 'Precio',
+                          icon: Icons.attach_money,
+                          onTap: () {
+                            // Acción al seleccionar el filtro de precio
+                          },
+                        ),
+                        FilterCard(
+                          backgraundColor: textColor,
+                          colorText: backgroundColor,
+                          title: 'Fecha',
+                          icon: Icons.calendar_today,
+                          onTap: () {
+                            // Acción al seleccionar el filtro de fecha
+                          },
+                        ),
+                        FilterCard(
+                          backgraundColor: textColor,
+                          colorText: backgroundColor,
+                          title: 'Ubicación',
+                          icon: Icons.location_on,
+                          onTap: () {
+                            // Acción al seleccionar el filtro de ubicación
+                          },
+                        ),
+                        FilterCard(
+                          backgraundColor: textColor,
+                          colorText: backgroundColor,
+                          title: 'Categoría',
+                          icon: Icons.category,
+                          onTap: () {
+                            // Acción al seleccionar el filtro de categoría
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+            //! SLIVER  CATEGORIAS Y PRODUCTOS
+            SliverToBoxAdapter(
+              child: isLoading
+                  ? const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          Text("Cargando...."),
                         ],
                       ),
-                    )),
-                SliverToBoxAdapter(
-                  child: isLoading
-                      ? const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(),
-                              Text("Cargando...."),
-                            ],
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                          },
-                          child: Container(
-                            color: backgroundColor,
-                            child: Column(
-                              children: [
-                                Text('${resp.width}x${resp.height}',
-                                    style: const TextStyle(fontSize: 12)),
-                                const SizedBox(height: 20),
-                                Align(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 30, right: 30),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'CATEGORIAS',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: textColor,
-                                          ),
-                                        ),
-                                      ],
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                      },
+                      child: Container(
+                        color: backgroundColor,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            //!  TITLE CATEGORIAS
+                            Align(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 30, right: 30),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'CATEGORIAS',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            //!CARD CATEGORIAS
+                            SizedBox(
+                              height: resp.width <= 600 ? 80 : 160,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: categories.length,
+                                itemBuilder: (context, index) {
+                                  final category = categories[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 30, right: 5),
+                                    child: MyCategoryCard(
+                                      label: category.name!,
+                                      backColor: backgroundColor,
+                                      textColor: textColor,
+                                      width: 300,
+                                      height: 250,
+                                      onPressed: () {},
+                                      image: const Icon(Icons.abc),
+                                      widthScreen: resp.width,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            //!  PRODUCTOS
+                            resp.width >= 850
+                                //! RESOLUCION WEB
+                                ? SizedBox(
+                                    height: 235,
+                                    child: Center(
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 8,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15, right: 5, top: 15),
+                                            child: MyProductCard(
+                                              onPressed: () {},
+                                              image: Image.asset('assets/hamburger-and-fries.jpg'),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                //! RESOLUCION TABLETA
+                                : SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Column(
+                                      children: List.generate(
+                                        4 ~/
+                                            1, // Dividir el número total de elementos entre 2 para obtener la cantidad de filas
+                                        (rowIndex) {
+                                          return Row(
+                                            children: List.generate(
+                                              MediaQuery.of(context).size.width >= 600
+                                                  ? 2
+                                                  : 1, // Verificar el ancho de la pantalla
+                                              (columnIndex) {
+                                                final index = rowIndex * 2 + columnIndex;
+                                                //! RESOLUCION MOVIL
+                                                return SizedBox(
+                                                  width: MediaQuery.of(context).size.width >= 600
+                                                      ? resp.width / 2
+                                                      : resp.width,
+                                                  height: 180,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 15, right: 5, top: 15),
+                                                    child: MyProductCardMobil(
+                                                      onPressed: () {
+                                                        // navegar a ProductScreen
+                                                        Navigator.pushNamed(context, '/product');
+                                                      },
+                                                      image: Image.asset(
+                                                          'assets/hamburger-and-fries.jpg'),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  height: resp.width <= 600 ? 80 : 160,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 4,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(left: 30, right: 5),
-                                        child: MyCategoryCard(
-                                          backColor: backgroundColor,
-                                          textColor: textColor,
-                                          width: 300,
-                                          height: 250,
-                                          onPressed: () {},
-                                          image: const Icon(Icons.abc),
-                                          widthScreen: resp.width,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                resp.width >= 700
-                                    ? SizedBox(
-                                        height: 235,
-                                        child: Center(
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 8,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15, right: 5, top: 15),
-                                                child: MyProductCard(
-                                                  onPressed: () {},
-                                                  image:
-                                                      Image.asset('assets/hamburger-and-fries.jpg'),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      )
-                                    : SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Column(
-                                          children: List.generate(
-                                            4 ~/
-                                                2, // Dividir el número total de elementos entre 2 para obtener la cantidad de filas
-                                            (rowIndex) {
-                                              return Row(
-                                                children: List.generate(
-                                                  MediaQuery.of(context).size.width >= 600
-                                                      ? 2
-                                                      : 1, // Verificar el ancho de la pantalla
-                                                  (columnIndex) {
-                                                    final index = rowIndex * 2 + columnIndex;
-                                                    return SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context).size.width >= 600
-                                                              ? resp.width / 2
-                                                              : resp.width,
-                                                      height: 180,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(
-                                                            left: 15, right: 5, top: 15),
-                                                        child: MyProductCardMobil(
-                                                          isCarrito: true,
-                                                          onPressed: () {},
-                                                          image: Image.asset(
-                                                              'assets/hamburger-and-fries.jpg'),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                // ignore: prefer_const_constructors
-                                SizedBox(height: 20),
-                                Visibility(
-                                  visible: resp.width >= 900,
-                                  child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Container(
-                                        height: 125,
-                                        width: resp.width,
-                                        child: Text(
-                                            '© 2023 Punto de Reunión. Todos los derechos reservados.',
-                                            style: TextStyle(color: textColor)),
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
+                            // ignore: prefer_const_constructors
+                            SizedBox(height: 20),
+                            //! FOOTER
+                            Visibility(
+                              visible: resp.width >= 900,
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Container(
+                                    height: 125,
+                                    width: resp.width,
+                                    child: Text(
+                                        '© 2023 Punto de Reunión. Todos los derechos reservados.',
+                                        style: TextStyle(color: textColor)),
+                                  )),
+                            )
+                          ],
                         ),
-                ),
-              ],
+                      ),
+                    ),
             ),
-          ));
+          ],
+        ),
+      );
     }
   }
 
-  Widget buildDrawer(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: 300,
-        child: ListTileTheme(
-          textColor: Colors.white,
-          iconColor: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 128.0,
-                height: 130,
-                margin: const EdgeInsets.only(
-                  top: 24.0,
-                  bottom: 64.0,
-                ),
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  color: Colors.black26,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  'assets/logo.png',
-                ),
-              ),
-              ListTile(
-                onTap: () {},
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-              ),
-              ListTile(
-                onTap: () {},
-                leading: const Icon(Icons.account_circle_rounded),
-                title: const Text('Profile'),
-              ),
-              ListTile(
-                onTap: () {},
-                leading: const Icon(Icons.favorite),
-                title: const Text('Favourites'),
-              ),
-              ListTile(
-                onTap: () {
-                  // Cambiar tema
-                  final themeChanger = Provider.of<ThemeChanger>(context, listen: false);
-                  themeChanger.isDarkMode = !themeChanger.isDarkMode;
-                },
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-              ),
-              const Spacer(),
-              DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.white54,
-                ),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 16.0,
-                  ),
-                  child: const Text('Terms of Service | Privacy Policy'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildDrawerWeb(BuildContext context, bool isDarkTheme) {
+  //!------------------------------------------------------------------------------------------------
+  //! BUILD-DRAWER
+  Widget buidDrawer(BuildContext context, bool isDarkTheme) {
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -758,136 +658,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-
-  CustomSliverAppBarDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  bool shouldRebuild(covariant CustomSliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
-}
-
-class FilterCard extends StatelessWidget {
-  final String? title;
-  final IconData? icon;
-  final VoidCallback onTap;
-  final Color? backgraundColor;
-  final Color? colorText;
-
-  const FilterCard({
-    super.key,
-    this.title = "",
-    required this.icon,
-    required this.onTap,
-    this.backgraundColor = Colors.white,
-    this.colorText = Colors.black,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: backgraundColor,
-              ),
-              height: 40,
-              width: 115,
-              padding: const EdgeInsets.all(2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(icon, color: colorText),
-                  const SizedBox(width: 5),
-                  Text(title ?? "", style: TextStyle(color: colorText)),
-                ],
-              ))),
-    );
-  }
-}
-
-class FilterCardMyProduct extends StatelessWidget {
-  final String? title;
-  final Widget? icon;
-  final VoidCallback onTap;
-  final Color? backgraundColor;
-  final Color? colorText;
-  final bool? isActive;
-
-  const FilterCardMyProduct({
-    super.key,
-    this.title = "",
-    this.icon,
-    required this.onTap,
-    this.backgraundColor = Colors.white,
-    this.colorText = Colors.black,
-    this.isActive = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-          elevation: isActive! ? 2 : 0.3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: isActive! ? backgraundColor : Colors.transparent,
-              ),
-              height: 40,
-              width: 100,
-              padding: const EdgeInsets.all(2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: isActive! ? Colors.orange : Colors.transparent,
-                      ),
-                      child: icon),
-                  const SizedBox(width: 3),
-                  Text(title ?? "",
-                      style: TextStyle(color: isActive! ? colorText : backgraundColor)),
-                ],
-              ))),
     );
   }
 }

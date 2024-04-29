@@ -6,8 +6,8 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:punto_de_reunion/Pages/home.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
+import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_product_card.dart';
 import 'package:punto_de_reunion/widgets/my_product_card_mobil.dart';
 
@@ -126,7 +126,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       isActive: true,
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
@@ -135,7 +135,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                         // Acción al seleccionar el filtro de categoría
                                       },
                                     ),
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
                                       title: 'Categoría',
@@ -143,7 +143,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                         // Acción al seleccionar el filtro de categoría
                                       },
                                     ),
-                                    FilterCardMyProduct(
+                                    MyFilterCardProduct(
                                       backgraundColor: textColor,
                                       colorText: backgroundColor,
                                       title: 'Categoría',
@@ -208,7 +208,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                                           left: 15, right: 5, top: 15),
                                                       child: MyProductCardMobil(
                                                         isCarrito: false,
-                                                        onPressed: () {},
+                                                        onPressed: () {
+
+                                                          Navigator.pushNamed(context, '/product');
+                                                        },
                                                         image: Image.asset(
                                                             'assets/hamburger-and-fries.jpg'),
                                                       ),

@@ -7,6 +7,8 @@ import 'package:punto_de_reunion/Pages/home_web.dart';
 import 'package:punto_de_reunion/Pages/splash_page.dart';
 import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
+import 'package:punto_de_reunion/providers/categories_provider.dart';
+import 'package:punto_de_reunion/services_providers/category_services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Provider(create: (_) => CategoryServices()),
-        // ChangeNotifierProvider(
-        //     create: (_) =>
-        //         CategoriesProvider()), // Crea el proveedor correcto para cargar las categorías
+        Provider(create: (_) => CategoryServices()),
+        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+        ChangeNotifierProvider(
+            create: (_) =>
+                CategoriesProvider()), // Crea el proveedor correcto para cargar las categorías
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
       child: Builder(
