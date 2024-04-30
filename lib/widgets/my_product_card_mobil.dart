@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class MyProductCardMobil extends StatelessWidget {
+  final bool skeleton;
   final String label;
+  final String description;
+  final String price;
+
   final void Function() onPressed;
   final Widget? image;
+  final String url;
   final Color backColor;
   final bool isCarrito;
 
   const MyProductCardMobil({
     super.key,
+    required this.skeleton,
     this.label = '',
+    this.description = '',
+    this.price = '',
     required this.onPressed,
     required this.image,
+    required this.url,
     this.backColor = Colors.white,
     this.isCarrito = false,
   });
@@ -22,136 +32,157 @@ class MyProductCardMobil extends StatelessWidget {
     final theme = Theme.of(context);
     final textColor = theme.textTheme.bodyLarge!.color;
 
-    return Card(
-      child: Container(
-        width: 300,
-        height: 180,
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: backColor,
-        ),
-        child: Stack(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Imagen a la izquierda
-                Container(
-                  width: 130, // Ancho de la imagen
-                  height: 150, // Alto de la tarjeta
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/hamburger-and-fries.jpg"),
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10), // Espacio entre la imagen y la información
-
-                // Información y botón
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 5),
-                      // Texto de la tarjeta
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Cangreburger\n',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'cangreburger con queso',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color.fromARGB(255, 201, 200, 200),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 5), // Espacio entre el texto y el precio
-
-                      // Precio
-                      Text(
-                        !isCarrito ? "\$250.00" : "",
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 5), // Espacio entre el precio y el botón
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const Positioned(
-              right: 8,
-              child: Icon(
-                FontAwesomeIcons.heart,
-                color: Colors.red,
-                size: 30,
-              ),
-            ),
-            Positioned(
-              right: 8,
-              bottom: 8,
-              child: Row(
+    return Skeletonizer(
+      enabled: skeleton,
+      child: Card(
+        child: Container(
+          width: 300,
+          height: 180,
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: backColor,
+          ),
+          child: Stack(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: onPressed,
-                    child: Container(
-                      width: 100,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.orange),
+                  // Imagen a la izquierda
+                  Container(
+                    width: 130, // Ancho de la imagen
+                    height: 150, // Alto de la tarjeta
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(url),
                       ),
-                      child: const Center(
-                        child: Text("Ver detalles",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.orange,
-                            )),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Container(
-                    width: 45,
-                    height: 45,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                      color: Colors.orange,
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                      size: 15,
+                  const SizedBox(width: 10), // Espacio entre la imagen y la información
+
+                  // Información y botón
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 15),
+                        // Texto de la tarjeta
+                        Text(
+                          label,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 4), // Espacio entre las dos líneas de texto
+                        Text(
+                          description,
+                          maxLines: 2, // Número máximo de líneas permitidas
+                          overflow: TextOverflow.ellipsis, // Manejo del desbordamiento de texto
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color.fromARGB(255, 201, 200, 200),
+                          ),
+                        ),
+                        // RichText(
+                        //   text: TextSpan(
+                        //     children: [
+                        //       TextSpan(
+                        //         text: label,
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Colors.black,
+                        //         ),
+                        //       ),
+                        //       TextSpan(
+                        //         text: "\n$description",
+                        //         style: TextStyle(
+                        //           fontSize: 12,
+                        //           color: Color.fromARGB(255, 201, 200, 200),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        const SizedBox(height: 5), // Espacio entre el texto y el precio
+
+                        // Precio
+                        Text(
+                          !isCarrito ? price : "",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 5), // Espacio entre el precio y el botón
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              const Positioned(
+                right: 8,
+                child: Icon(
+                  FontAwesomeIcons.heart,
+                  color: Colors.red,
+                  size: 30,
+                ),
+              ),
+              Positioned(
+                right: 8,
+                bottom: 8,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: onPressed,
+                      child: Container(
+                        width: 100,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.orange),
+                        ),
+                        child: const Center(
+                          child: Text("Ver detalles",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.orange,
+                              )),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      width: 45,
+                      height: 45,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                        color: Colors.orange,
+                      ),
+                      child: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

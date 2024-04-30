@@ -8,6 +8,8 @@ import 'package:punto_de_reunion/Pages/splash_page.dart';
 import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/providers/categories_provider.dart';
+import 'package:punto_de_reunion/providers/product_provider.dart';
+import 'package:punto_de_reunion/services_providers/Product_services.dart';
 import 'package:punto_de_reunion/services_providers/category_services.dart';
 
 void main() {
@@ -22,10 +24,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) => CategoryServices()),
+        Provider(create: (_) => ProductServices()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-        ChangeNotifierProvider(
-            create: (_) =>
-                CategoriesProvider()), // Crea el proveedor correcto para cargar las categorías
+        ChangeNotifierProvider(create: (_) =>ProductProvider()), // Crea el proveedor correcto para cargar las categorías
+      
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
       child: Builder(

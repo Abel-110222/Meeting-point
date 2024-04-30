@@ -207,9 +207,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                                       padding: const EdgeInsets.only(
                                                           left: 15, right: 5, top: 15),
                                                       child: MyProductCardMobil(
+                                                        url: "",
+                                                        skeleton: isLoading,
                                                         isCarrito: false,
                                                         onPressed: () {
-
                                                           Navigator.pushNamed(context, '/product');
                                                         },
                                                         image: Image.asset(
@@ -235,5 +236,4 @@ class _ProductsScreenState extends State<ProductsScreen> {
       );
     }
   }
-
 }
