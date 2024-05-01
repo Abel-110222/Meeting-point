@@ -6,20 +6,20 @@ import 'package:punto_de_reunion/utils/es_estructura.dart';
 
 class EsOrganization extends EsEstructura {
   bool success = false;
-  List<OrganizationModel>?organization  = [];
+  List<OrganizationModel>?organizations  = [];
 
   EsOrganization({
     this.success = false,
-    this.organization,
+    this.organizations,
 
     ///!
     super.info,
   });
   factory EsOrganization.fromJson(Map<String, dynamic> json) => EsOrganization(
         success: json["success"] ?? false,
-        organization: json["organization"] == null
+        organizations: json["organizations"] == null
             ? null
-            : List<OrganizationModel>.from(json["organization"].map((x) => OrganizationModel.fromJson(x))),
+            : List<OrganizationModel>.from(json["organizations"].map((x) => OrganizationModel.fromJson(x))),
 
         ///
         info: json["info"] == null ? null : EnInfo.fromJson(json["info"]),
@@ -27,7 +27,7 @@ class EsOrganization extends EsEstructura {
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "organization": organization,
+        "organizations": organizations,
         "info": info,
       };
 }

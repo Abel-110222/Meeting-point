@@ -8,8 +8,10 @@ import 'package:punto_de_reunion/Pages/organizations_screen.dart';
 import 'package:punto_de_reunion/Pages/products_screen.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/models/category/categories_model.dart';
+import 'package:punto_de_reunion/models/organization/organization_model.dart';
 import 'package:punto_de_reunion/models/product/Product_Model.dart';
 import 'package:punto_de_reunion/services_providers/Product_services.dart';
+import 'package:punto_de_reunion/services_providers/organization_services.dart';
 import 'package:punto_de_reunion/utils/struct_response.dart';
 import 'package:punto_de_reunion/services_providers/category_services.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
@@ -68,6 +70,7 @@ class _HomeState extends State<Home> {
   int score = 0;
   List<Categories> categories = []; // Variable para almacenar las categorías
   List<ProductModel> products = [];
+  List <OrganizationModel> organizations = [];
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -129,6 +132,21 @@ class _HomeState extends State<Home> {
         products = loadedProducts.products!;
       });
     } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+
+    try {
+      final organizationProvider = Provider.of<OrganizationService>(context, listen: false);
+      final loadedOrganizations = await organizationProvider.getOrganizations();
+
+      setState(() {
+        organizations = loadedOrganizations.organizations!; 
+      });
+    } finally{
       if (mounted) {
         setState(() {
           isLoading = false;
