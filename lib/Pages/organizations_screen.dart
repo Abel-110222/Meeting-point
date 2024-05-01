@@ -6,6 +6,9 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:punto_de_reunion/models/organization/organization_model.dart';
+import 'package:punto_de_reunion/services_providers/organization_services.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_organization_card.dart';
@@ -20,6 +23,32 @@ class OrganizationsScreen extends StatefulWidget {
 class _OrganizationsScreenState extends State<OrganizationsScreen> {
   bool isLoading = false;
   TextEditingController textController = TextEditingController();
+  List<OrganizationModel> organizations = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadOrganizations();
+    
+  }
+
+  Future<void> loadOrganizations() async {
+    try {
+      final organizationProvider = Provider.of<OrganizationService>(context, listen: false);
+      final loadedOrganizations = await organizationProvider.getOrganizations();
+
+      setState(() {
+        organizations = loadedOrganizations.organizations!; 
+      });
+    } finally{
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
@@ -163,63 +192,32 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              resp.width >= 700
-                                  ? SizedBox(
+                            
+                                  SizedBox(
                                       height: 235,
                                       child: Center(
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: 10,
                                           itemBuilder: (context, index) {
+                                            var itemOrganization = organizations[index];
+
                                             return Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 15, right: 5, top: 15),
                                               child: MyOrganizationCard(
                                                 onPressed: () {},
-                                                image:
-                                                    Image.asset('assets/hamburger-and-fries.jpg'),
+                                                image: itemOrganization.imageUrl,
+                                                description: itemOrganization.description,
+                                                title: itemOrganization.name,
+                                
                                               ),
                                             );
                                           },
                                         ),
                                       ),
                                     )
-                                  : SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Column(
-                                        children: List.generate(
-                                          10,
-                                          (rowIndex) {
-                                            return Row(
-                                              children: List.generate(
-                                                MediaQuery.of(context).size.width >= 600
-                                                    ? 2
-                                                    : 1, // Verificar el ancho de la pantalla
-                                                (columnIndex) {
-                                                  final index = rowIndex * 2 + columnIndex;
-                                                  return SizedBox(
-                                                    width: MediaQuery.of(context).size.width >= 600
-                                                        ? resp.width / 2
-                                                        : resp.width,
-                                                    height: 180,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 15, right: 5, top: 15),
-                                                      child: MyOrganizationCard(
-                                                        isCarrito: false,
-                                                        onPressed: () {},
-                                                        image: Image.asset(
-                                                            'assets/hamburger-and-fries.jpg'),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
+                                  
                             ],
                           ),
                         ),
