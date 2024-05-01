@@ -27,7 +27,6 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadOrganizations();
     
@@ -197,8 +196,8 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                       height: 235,
                                       child: Center(
                                         child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 10,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: organizations.length,
                                           itemBuilder: (context, index) {
                                             var itemOrganization = organizations[index];
 
