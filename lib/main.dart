@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/Pages/home.dart';
-import 'package:punto_de_reunion/Pages/home_web.dart';
 import 'package:punto_de_reunion/Pages/splash_page.dart';
 import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
@@ -29,7 +28,9 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => ProductServices()),
         Provider(create: (_) => OrganizationService()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-        ChangeNotifierProvider(create: (_) =>ProductProvider()), // Crea el proveedor correcto para cargar las categorías
+        ChangeNotifierProvider(
+            create: (_) =>
+                ProductProvider()), // Crea el proveedor correcto para cargar las categorías
         ChangeNotifierProvider<OrganizationsProvider>(create: (_) => OrganizationsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
               'view_Home': (context) => const Home(),
               '/SplashPageRoute': (context) => const SplashPage(),
               '/PromotionSplashPageRoute': (context) => const PromotionSplashPage(),
-              'View_Home_web': (context) => const HomeWeb(),
+              // 'View_Home_web': (context) => const HomeWeb(),
             },
           );
         },

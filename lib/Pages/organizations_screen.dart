@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/models/organization/organization_model.dart';
-import 'package:punto_de_reunion/services_providers/organization_services.dart';
+import 'package:punto_de_reunion/providers/organizations_provider.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_organization_card.dart';
@@ -28,29 +28,15 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
   @override
   void initState() {
     super.initState();
-    loadOrganizations();
-    
+    //  loadOrganizations();
   }
 
-  Future<void> loadOrganizations() async {
-    try {
-      final organizationProvider = Provider.of<OrganizationService>(context, listen: false);
-      final loadedOrganizations = await organizationProvider.getOrganizations();
-
-      setState(() {
-        organizations = loadedOrganizations.organizations!; 
-      });
-    } finally{
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-  }
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
+    final organizationsProvider = Provider.of<OrganizationsProvider>(context);
+    organizationsProvider.getOrganizations();
+    organizations = organizationsProvider.organizationList;
 
     // Obtener el tema actual
     final theme = Theme.of(context);
@@ -191,32 +177,28 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                            
-                                  SizedBox(
-                                      height: 235,
-                                      child: Center(
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 10,
-                                          itemBuilder: (context, index) {
-                                            var itemOrganization = organizations[index];
+                              SizedBox(
+                                height: 235,
+                                child: Center(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 10,
+                                    itemBuilder: (context, index) {
+                                      var itemOrganization = organizations[index];
 
-                                            return Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 5, top: 15),
-                                              child: MyOrganizationCard(
-                                                onPressed: () {},
-                                                image: itemOrganization.imageUrl,
-                                                description: itemOrganization.description,
-                                                title: itemOrganization.name,
-                                
-                                              ),
-                                            );
-                                          },
+                                      return Padding(
+                                        padding: const EdgeInsets.only(left: 15, right: 5, top: 15),
+                                        child: MyOrganizationCard(
+                                          onPressed: () {},
+                                          image: itemOrganization.imageUrl,
+                                          description: itemOrganization.description,
+                                          title: itemOrganization.name,
                                         ),
-                                      ),
-                                    )
-                                  
+                                      );
+                                    },
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -228,5 +210,4 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
       );
     }
   }
-
 }

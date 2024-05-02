@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:punto_de_reunion/widgets/my_text_class.dart';
 
 class MyOrganizationCard extends StatelessWidget {
   final void Function() onPressed;
@@ -20,7 +21,7 @@ class MyOrganizationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        width: 200,
+        width: 250,
         height: 200,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -42,24 +43,14 @@ class MyOrganizationCard extends StatelessWidget {
                   ),
                   child: Image.network(
                     image!,
-                    fit: BoxFit
-                        .cover, // Opcional: ajusta la imagen dentro del contenedor
+                    fit: BoxFit.cover, // Opcional: ajusta la imagen dentro del contenedor
                   ),
                 ),
-                const SizedBox(
-                    width: 10), // Espacio entre el contenedor y el texto
-                Text(
-                  title!,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const SizedBox(width: 5),
+                MyTextClass(text: title!, fontSize: 20, isTextColor: true, wrap: false),
               ],
             ),
-            const SizedBox(
-                width: 10), // Espacio entre la imagen y la información
+            const SizedBox(width: 10), // Espacio entre la imagen y la información
 
             // Información y botón
             Expanded(
@@ -82,7 +73,7 @@ class MyOrganizationCard extends StatelessWidget {
                           text: description,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: Color.fromARGB(255, 239, 14, 14),
+                            color: Colors.grey,
                           ),
                         ),
                       ],

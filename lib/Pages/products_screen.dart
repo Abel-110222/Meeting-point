@@ -177,9 +177,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                               padding: const EdgeInsets.only(
                                                   left: 15, right: 5, top: 15),
                                               child: MyProductCard(
-                                                onPressed: () {},
-                                                image:
-                                                    Image.asset('assets/hamburger-and-fries.jpg'),
+                                                skeleton: isLoading,
+                                                isCarrito: false,
+                                                description:  '',
+                                                price: "${12.00}",
+                                                url:'',
+                                                onPressed: () {
+                                                  // Navegar a ProductScreen
+                                                  Navigator.pushNamed(context, '/product');
+                                                },
+                                                image: null, // Usa la URL de la imagen del producto
+                                                label: '',
                                               ),
                                             );
                                           },

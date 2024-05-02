@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class MyProductCardMobil extends StatelessWidget {
+class MyProductCardMobil extends StatefulWidget {
   final bool skeleton;
   final String label;
   final String description;
@@ -15,8 +15,7 @@ class MyProductCardMobil extends StatelessWidget {
   final bool isCarrito;
 
   const MyProductCardMobil({
-    super.key,
-    required this.skeleton,
+    this.skeleton = true,
     this.label = '',
     this.description = '',
     this.price = '',
@@ -25,23 +24,30 @@ class MyProductCardMobil extends StatelessWidget {
     required this.url,
     this.backColor = Colors.white,
     this.isCarrito = false,
+    super.key,
   });
 
+  @override
+  State<MyProductCardMobil> createState() => _MyProductCardMobilState();
+}
+
+class _MyProductCardMobilState extends State<MyProductCardMobil> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textColor = theme.textTheme.bodyLarge!.color;
 
-    return Skeletonizer(
-      enabled: skeleton,
-      child: Card(
+    return Card(
+      child: Skeletonizer(
+        containersColor: Colors.amber,
+        enabled: widget.skeleton,
         child: Container(
           width: 300,
           height: 180,
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: backColor,
+            color: widget.backColor,
           ),
           child: Stack(
             children: [
@@ -55,7 +61,7 @@ class MyProductCardMobil extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(url),
+                        image: NetworkImage(widget.url),
                       ),
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -66,14 +72,15 @@ class MyProductCardMobil extends StatelessWidget {
                   const SizedBox(width: 10), // Espacio entre la imagen y la información
 
                   // Información y botón
-                  Expanded(
+                  SizedBox(
+                    width: 300,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 15),
                         // Texto de la tarjeta
                         Text(
-                          label,
+                          widget.label,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -82,7 +89,7 @@ class MyProductCardMobil extends StatelessWidget {
                         ),
                         const SizedBox(height: 4), // Espacio entre las dos líneas de texto
                         Text(
-                          description,
+                          widget.description,
                           maxLines: 2, // Número máximo de líneas permitidas
                           overflow: TextOverflow.ellipsis, // Manejo del desbordamiento de texto
                           style: const TextStyle(
@@ -115,7 +122,7 @@ class MyProductCardMobil extends StatelessWidget {
 
                         // Precio
                         Text(
-                          !isCarrito ? price : "",
+                          !widget.isCarrito ? widget.price : "",
                           style: const TextStyle(
                             fontSize: 15,
                             color: Colors.black,
@@ -142,7 +149,7 @@ class MyProductCardMobil extends StatelessWidget {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: onPressed,
+                      onTap: widget.onPressed,
                       child: Container(
                         width: 100,
                         height: 40,
