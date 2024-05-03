@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, sized_box_for_whitespace, use_build_context_synchronously
 
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -178,7 +177,7 @@ class _HomeState extends State<Home> {
       persistentFooterAlignment: AlignmentDirectional.bottomCenter,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
-      endDrawer: const Drawer(),
+      endDrawer: buildEndDrawer(context, isDarkTheme),
       drawerScrimColor: Colors.transparent, // Hace que el scrim del Drawer sea transparente
       appBar: null,
       drawer: buildDrawer(context, isDarkTheme),
@@ -674,6 +673,9 @@ class _HomeState extends State<Home> {
     BuildContext context,
     bool isDarkTheme,
   ) {
+    double sizeIcon = 25;
+    double sizeText = 16;
+
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -713,7 +715,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 9, top: 9),
+                        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 9, top: 9),
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border(bottom: BorderSide(color: Colors.grey.shade400)),
@@ -722,84 +724,141 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.house,
-                    ),
-                    title: const Text(' Home '),
-                    onTap: () {
-                      // Acción al seleccionar el elemento del Drawer
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.bagShopping,
-                    ),
-                    title: const Text(' Productos '),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ProductsScreen()),
-                      );
-                      // Cambiar tema
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.tags,
-                    ),
-                    title: const Text(' Categorias '),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const CategoriesScreen()),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.buildingUser,
-                    ),
-                    title: const Text(' Organizaciones '),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const OrganizationsScreen()),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      !isDarkTheme ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
-                      color: isDarkTheme ? Colors.white : Colors.black,
-                    ),
-                    title: Text(
-                      isDarkTheme ? ' Modo claro ' : ' Modo oscuro ',
-                      style: TextStyle(
-                        color: isDarkTheme ? Colors.white : Colors.black,
-                      ),
-                    ),
-                    trailing: Transform.scale(
-                      scale: 0.8, // Ajusta este valor para cambiar el tamaño del switch
-                      child: Switch(
-                        value: isDarkTheme,
-                        onChanged: (value) {
-                          final themeChanger = Provider.of<ThemeChanger>(context, listen: false);
-                          themeChanger.isDarkMode = value;
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(children: [
+                      ListTile(
+                        leading: const Icon(
+                          FontAwesomeIcons.house,
+                        ),
+                        title: const Text(' Home '),
+                        onTap: () {
+                          // Acción al seleccionar el elemento del Drawer
+                          Navigator.pop(context);
                         },
-                        activeColor: Colors.white,
-                        activeTrackColor: Colors.white.withOpacity(0.5),
                       ),
-                    ),
-                    onTap: () {
-                      final themeChanger = Provider.of<ThemeChanger>(context, listen: false);
-                      themeChanger.isDarkMode = !themeChanger.isDarkMode;
-                    },
-                  ),
+                      ListTile(
+                        leading: const Icon(
+                          FontAwesomeIcons.bagShopping,
+                        ),
+                        title: const Text(' Productos '),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ProductsScreen()),
+                          );
+                          // Cambiar tema
+                        },
+                      ),
+                      ListTile(
+                        hoverColor: Colors.cyan,
+                        leading: const Icon(
+                          FontAwesomeIcons.tags,
+                        ),
+                        title: const Text(' Categorias '),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const CategoriesScreen()),
+                          );
+                        },
+                      ),
+                      ExpansionTile(
+                        leading: const Icon(
+                          FontAwesomeIcons.buildingUser,
+                        ),
+                        title: const Text('Organizaciones'),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: ListTile(
+                              title: const Text('Ver Organizaciones'),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const OrganizationsScreen()),
+                                );
+
+                                // Acción cuando se toca la opción 1
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: ListTile(
+                              title: const Text('Mi Organización'),
+                              onTap: () {
+                                // Acción cuando se toca la opción 2
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Color.fromARGB(255, 190, 190, 190), width: 2.5)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Row(
+                          children: [
+                            Text("Configuración",
+                                style: TextStyle(
+                                  color: isDarkTheme ? Colors.white : Colors.black,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          !isDarkTheme ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
+                          color: isDarkTheme ? Colors.white : Colors.black,
+                        ),
+                        title: Text(
+                          isDarkTheme ? ' Modo claro ' : ' Modo oscuro ',
+                          style: TextStyle(
+                            color: isDarkTheme ? Colors.white : Colors.black,
+                          ),
+                        ),
+                        trailing: Transform.scale(
+                          scale: 0.8, // Ajusta este valor para cambiar el tamaño del switch
+                          child: Switch(
+                            value: isDarkTheme,
+                            onChanged: (value) {
+                              final themeChanger =
+                                  Provider.of<ThemeChanger>(context, listen: false);
+                              themeChanger.isDarkMode = value;
+                            },
+                            activeColor: Colors.white,
+                            activeTrackColor: Colors.white.withOpacity(0.5),
+                          ),
+                        ),
+                        onTap: () {
+                          final themeChanger = Provider.of<ThemeChanger>(context, listen: false);
+                          themeChanger.isDarkMode = !themeChanger.isDarkMode;
+                        },
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Color.fromARGB(255, 190, 190, 190), width: 2.5)),
+                        ),
+                      ),
+                    ]),
+                  )
                 ],
               ),
             ),
@@ -811,8 +870,7 @@ class _HomeState extends State<Home> {
                 decoration: BoxDecoration(
                   border:
                       const Border(bottom: BorderSide(color: Color.fromARGB(255, 151, 151, 151))),
-                  color:
-                      !isDarkTheme ? Colors.grey.shade100 : const Color.fromARGB(255, 48, 48, 48),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
@@ -828,11 +886,12 @@ class _HomeState extends State<Home> {
                             radius: 16.0,
                             lineWidth: 3.0,
                             percent: 0.5,
-                            center: const Text("50%", style: TextStyle(fontSize: 10.0)),
+                            center: const Text("50%",
+                                style: TextStyle(fontSize: 10.0, color: Colors.black)),
                             progressColor: Colors.orange, // Color de progreso naranja
                           ),
                         ),
-                        const Icon(FontAwesomeIcons.xmark)
+                        const Icon(FontAwesomeIcons.xmark, color: Colors.black, size: 15),
                       ],
                     ),
                     const SizedBox(height: 5),
@@ -938,7 +997,254 @@ class _HomeState extends State<Home> {
                     )),
                     const Spacer(),
                     Icon(
-                      FontAwesomeIcons.xmark,
+                      FontAwesomeIcons.rightFromBracket,
+                      color: Colors.red.shade400,
+                    ),
+                  ],
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+//!------------------------------------------------------------------------------------------------
+//! BUILD-DRAWER
+  Widget buildEndDrawer(
+    BuildContext context,
+    bool isDarkTheme,
+  ) {
+    double sizeIcon = 25;
+    double sizeText = 16;
+
+    return Drawer(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDarkTheme
+                ? [Colors.black87, Colors.black54]
+                : [Colors.grey, Colors.grey.withOpacity(0.2)],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 8),
+                      Text(
+                        'Mi Carrito',
+                        style: TextStyle(
+                          color: isDarkTheme ? Colors.white : Colors.black,
+                          fontSize: 22,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 9, top: 9),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(children: [
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      const SizedBox(width: 30),
+                      Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.orange,
+                          )),
+                      const SizedBox(width: 20),
+                      RichText(
+                          text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Organizacion \n',
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '24/12/2024 : 12:00 PM',
+                            style:
+                                TextStyle(fontSize: 12, color: Color.fromARGB(255, 66, 66, 66)),
+                          ),
+                        ],
+                      )),
+                    ]),
+                    const SizedBox(width: 10),
+                    const Row(children: [
+                      SizedBox(width: 30),
+                      Icon(FontAwesomeIcons.locationDot, color: Colors.black, size: 15),
+                      SizedBox(width: 10),
+                      Text("Edificio C, Aula 112", style: TextStyle(fontSize: 14)),
+                    ]),
+                    const Text(
+                      ".\n.\n.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing:
+                            0.2, // Ajusta el espaciado entre líneas, puedes probar con diferentes valores para obtener el resultado deseado
+                      ),
+                      textAlign: TextAlign.left, // Ajusta el texto a la izquierda
+                    ),
+                    const Row(children: [
+                      SizedBox(width: 30),
+                      Icon(FontAwesomeIcons.mapPin, color: Colors.orange, size: 15),
+                      SizedBox(width: 10),
+                      Text("Edificio C, Aula 112", style: TextStyle(fontSize: 14)),
+                    ])
+                  ])
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                height: 130,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border:
+                      const Border(bottom: BorderSide(color: Color.fromARGB(255, 151, 151, 151))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 35,
+                          height: 35,
+                          child: CircularPercentIndicator(
+                            radius: 16.0,
+                            lineWidth: 3.0,
+                            percent: 0.5,
+                            center: const Text("50%",
+                                style: TextStyle(fontSize: 10.0, color: Colors.black)),
+                            progressColor: Colors.orange, // Color de progreso naranja
+                          ),
+                        ),
+                        const Icon(FontAwesomeIcons.xmark, color: Colors.black, size: 15),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        RichText(
+                            text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Acompleta tu perfil\n',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: 'Completa tu perfil para terminar',
+                              style:
+                                  TextStyle(fontSize: 12, color: Color.fromARGB(255, 66, 66, 66)),
+                            ),
+                          ],
+                        )),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Container(
+                        width: 200,
+                        height: 30, // Ajusta el ancho según sea necesario
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10), // Bordes cuadrados
+                          gradient: LinearGradient(
+                            colors: [Colors.orange.shade400, Colors.orange.shade800],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            // Acción al presionar el botón
+                          },
+                          child: const Text(
+                            "Editar Perfil",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                height: 70,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: isDarkTheme
+                        ? [const Color.fromARGB(221, 39, 39, 39), Colors.black54]
+                        : [Colors.grey, Colors.grey.withOpacity(0.2)],
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.abc,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    RichText(
+                        text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Bienvenido\n',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: 'Abel Balam',
+                          style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 66, 66, 66)),
+                        ),
+                      ],
+                    )),
+                    const Spacer(),
+                    Icon(
+                      FontAwesomeIcons.rightFromBracket,
                       color: Colors.red.shade400,
                     ),
                   ],
