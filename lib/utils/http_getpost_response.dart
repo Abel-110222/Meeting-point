@@ -19,7 +19,7 @@ Future<DefaultStructHttpResponse> httpGetPostResponse(
   bool showResult = false,
 ]) async {
   url = url.replace(queryParameters: {
-    'currentPage': currentPage.toString(),
+    'page': currentPage.toString(),
     'limit': limit.toString(),
   });
   // Configurar cabeceras
