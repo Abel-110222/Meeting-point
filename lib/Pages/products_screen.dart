@@ -6,6 +6,10 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:punto_de_reunion/Pages/home.dart';
+import 'package:punto_de_reunion/models/product/Product_Model.dart';
+import 'package:punto_de_reunion/providers/product_provider.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_product_card.dart';
@@ -21,9 +25,15 @@ class ProductsScreen extends StatefulWidget {
 class _ProductsScreenState extends State<ProductsScreen> {
   bool isLoading = false;
   TextEditingController textController = TextEditingController();
+  late List<ProductModel> products = [];
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
+    //! -----------------------------------
+    //! PROVIDER Productos
+    final productorProvider = Provider.of<ProductProvider>(context);
+    productorProvider.getProducts();
+    products = productorProvider.productList;
 
     // Obtener el tema actual
     final theme = Theme.of(context);
@@ -52,6 +62,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
+          surfaceTintColor: backgroundColor,
+          elevation: 0,
           actions: [
             AnimSearchBar(
               width: 300,
@@ -165,74 +177,116 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              resp.width >= 700
-                                  ? SizedBox(
-                                      height: 235,
-                                      child: Center(
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 10,
-                                          itemBuilder: (context, index) {
+                              resp.width > 1350
+                                  ? SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: List.generate(
+                                          products.length,
+                                          (index) {
+                                            final product = products[index];
                                             return Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 15, right: 5, top: 15),
-                                              child: MyProductCard(
-                                                skeleton: isLoading,
-                                                isCarrito: false,
-                                                description:  '',
-                                                price: "${12.00}",
-                                                url:'',
-                                                onPressed: () {
-                                                  // Navegar a ProductScreen
-                                                  Navigator.pushNamed(context, '/product');
-                                                },
-                                                image: null, // Usa la URL de la imagen del producto
-                                                label: '',
+                                              child: SizedBox(
+                                                width: 350,
+                                                height: 250,
+                                                child: MyProductCard(
+                                                  onPressed: () {
+                                                    // Navegar a ProductScreen
+                                                    Navigator.pushNamed(context, '/product');
+                                                  },
+                                                  skeleton: isLoading,
+                                                  isCarrito: false,
+                                                  description: product.description ?? '',
+                                                  price: "${12.00}",
+                                                  url: product.images![0].url ?? '',
+
+                                                  image:
+                                                      null, // Usa la URL de la imagen del producto
+                                                  label: product.name!,
+                                                ),
                                               ),
                                             );
                                           },
                                         ),
                                       ),
                                     )
-                                  : SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Column(
-                                        children: List.generate(
-                                          10,
-                                          (rowIndex) {
-                                            return Row(
-                                              children: List.generate(
-                                                MediaQuery.of(context).size.width >= 600
-                                                    ? 2
-                                                    : 1, // Verificar el ancho de la pantalla
-                                                (columnIndex) {
-                                                  return SizedBox(
-                                                    width: MediaQuery.of(context).size.width >= 600
-                                                        ? resp.width / 2
-                                                        : resp.width,
-                                                    height: 180,
-                                                    child: Padding(
+                                  : resp.width < 1000
+                                      ? isLoading
+                                          ? SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: List.generate(
+                                                  10,
+                                                  (index) {
+                                                    return Padding(
                                                       padding: const EdgeInsets.only(
                                                           left: 15, right: 5, top: 15),
-                                                      child: MyProductCardMobil(
-                                                        url: "",
-                                                        skeleton: isLoading,
-                                                        isCarrito: false,
-                                                        onPressed: () {
-                                                          Navigator.pushNamed(context, '/product');
-                                                        },
-                                                        image: Image.asset(
-                                                            'assets/hamburger-and-fries.jpg'),
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(context).size.width,
+                                                        height: 180,
+                                                        child: MyProductCardMobil(
+                                                            skeleton: isLoading,
+                                                            isCarrito: false,
+                                                            description: '',
+                                                            price: "${12.00}",
+                                                            url: '',
+                                                            onPressed: () {
+                                                              // Navegar a ProductScreen
+                                                              Navigator.pushNamed(
+                                                                  context, '/product');
+                                                            },
+                                                            image:
+                                                                null, // Usa la URL de la imagen del producto
+                                                            label: ""),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
+                                                    );
+                                                  },
+                                                ),
                                               ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
+                                            )
+                                          : SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: List.generate(
+                                                  products.length,
+                                                  (index) {
+                                                    final product = products[index];
+                                                    return Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          left: 15, right: 5, top: 15),
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(context).size.width,
+                                                        height: 180,
+                                                        child: MyProductCardMobil(
+                                                          skeleton: isLoading,
+                                                          isCarrito: false,
+                                                          description: product.description ?? '',
+                                                          price: "${12.00}",
+                                                          url: product.images![0].url ?? '',
+                                                          onPressed: () {
+                                                            // Navegar a ProductScreen
+                                                            Navigator.pushNamed(
+                                                                context, '/product');
+                                                          },
+                                                          image:
+                                                              null, // Usa la URL de la imagen del producto
+                                                          label: product.name!,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                      : isLoading //! Resolucion para Tablets
+                                          ? CardMovilProductLoading(isLoading: isLoading)
+                                          : CardNovilProduct(
+                                              products: products, isLoading: isLoading),
                             ],
                           ),
                         ),

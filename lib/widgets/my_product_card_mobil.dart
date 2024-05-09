@@ -39,7 +39,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 
     return Card(
       child: Skeletonizer(
-        containersColor: Colors.amber,
+        containersColor: Colors.grey,
         enabled: widget.skeleton,
         child: Container(
           width: 300,

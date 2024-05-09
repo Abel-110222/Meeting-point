@@ -9,9 +9,6 @@ import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/providers/categories_provider.dart';
 import 'package:punto_de_reunion/providers/organizations_provider.dart';
 import 'package:punto_de_reunion/providers/product_provider.dart';
-import 'package:punto_de_reunion/services_providers/Product_services.dart';
-import 'package:punto_de_reunion/services_providers/category_services.dart';
-import 'package:punto_de_reunion/services_providers/organization_services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,14 +21,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => CategoryServices()),
-        Provider(create: (_) => ProductServices()),
-        Provider(create: (_) => OrganizationService()),
-        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-        ChangeNotifierProvider(
-            create: (_) =>
-                ProductProvider()), // Crea el proveedor correcto para cargar las categorías
         ChangeNotifierProvider<OrganizationsProvider>(create: (_) => OrganizationsProvider()),
+        ChangeNotifierProvider<ProductProvider>(create: (_) => ProductProvider()),
+        ChangeNotifierProvider<CategoriesProvider>(create: (_) => CategoriesProvider()),
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
       child: Builder(
