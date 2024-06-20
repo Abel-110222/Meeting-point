@@ -608,7 +608,7 @@ class _HomeState extends State<Home> {
             end: Alignment.bottomRight,
             colors: isDarkTheme
                 ? [Colors.black87, Colors.black54]
-                : [Colors.grey, Colors.grey.withOpacity(0.2)],
+                : [const Color.fromARGB(255, 239, 239, 239), const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)],
           ),
         ),
         child: Column(
@@ -624,9 +624,10 @@ class _HomeState extends State<Home> {
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/logo.png'),
+                            image: const AssetImage('assets/logo.png'),
+                            invertColors: isDarkTheme
                           ),
                         ),
                       ),
@@ -676,11 +677,10 @@ class _HomeState extends State<Home> {
                         },
                       ),
                       ListTile(
-                        hoverColor: Colors.cyan,
                         leading: const Icon(
                           FontAwesomeIcons.tags,
                         ),
-                        title: const Text(' Categorias '),
+                        title: const Text(' Categorías'),
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -731,7 +731,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        padding: const EdgeInsets.symmetric(vertical: 6),
                         child: Row(
                           children: [
                             Text("Configuración",
@@ -786,89 +786,89 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Container(
-                height: 130,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border:
-                      const Border(bottom: BorderSide(color: Color.fromARGB(255, 151, 151, 151))),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 35,
-                          child: CircularPercentIndicator(
-                            radius: 16.0,
-                            lineWidth: 3.0,
-                            percent: 0.5,
-                            center: const Text("50%",
-                                style: TextStyle(fontSize: 10.0, color: Colors.black)),
-                            progressColor: Colors.orange, // Color de progreso naranja
-                          ),
-                        ),
-                        const Icon(FontAwesomeIcons.xmark, color: Colors.black, size: 15),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        RichText(
-                            text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Acompleta tu perfil\n',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: 'Completa tu perfil para terminar',
-                              style:
-                                  TextStyle(fontSize: 12, color: Color.fromARGB(255, 66, 66, 66)),
-                            ),
-                          ],
-                        )),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Container(
-                        width: 200,
-                        height: 30, // Ajusta el ancho según sea necesario
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10), // Bordes cuadrados
-                          gradient: LinearGradient(
-                            colors: [Colors.orange.shade400, Colors.orange.shade800],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            // Acción al presionar el botón
-                          },
-                          child: const Text(
-                            "Editar Perfil",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(20),
+            //   child: Container(
+            //     height: 130,
+            //     padding: const EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       border:
+            //           const Border(bottom: BorderSide(color: Color.fromARGB(255, 151, 151, 151))),
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(8),
+            //     ),
+            //     child: Column(
+            //       children: [
+            //         Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Container(
+            //               width: 35,
+            //               height: 35,
+            //               child: CircularPercentIndicator(
+            //                 radius: 16.0,
+            //                 lineWidth: 3.0,
+            //                 percent: 0.5,
+            //                 center: const Text("50%",
+            //                     style: TextStyle(fontSize: 10.0, color: Colors.black)),
+            //                 progressColor: Colors.orange, // Color de progreso naranja
+            //               ),
+            //             ),
+            //             const Icon(FontAwesomeIcons.xmark, color: Colors.black, size: 15),
+            //           ],
+            //         ),
+            //         const SizedBox(height: 5),
+            //         Row(
+            //           children: [
+            //             RichText(
+            //                 text: const TextSpan(
+            //               children: [
+            //                 TextSpan(
+            //                   text: 'Acompleta tu perfil\n',
+            //                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            //                 ),
+            //                 TextSpan(
+            //                   text: 'Completa tu perfil para terminar',
+            //                   style:
+            //                       TextStyle(fontSize: 12, color: Color.fromARGB(255, 66, 66, 66)),
+            //                 ),
+            //               ],
+            //             )),
+            //           ],
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.only(top: 4),
+            //           child: Container(
+            //             width: 200,
+            //             height: 30, // Ajusta el ancho según sea necesario
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(10), // Bordes cuadrados
+            //               gradient: LinearGradient(
+            //                 colors: [Colors.orange.shade400, Colors.orange.shade800],
+            //                 begin: Alignment.centerLeft,
+            //                 end: Alignment.centerRight,
+            //               ),
+            //             ),
+            //             child: TextButton(
+            //               onPressed: () {
+            //                 // Acción al presionar el botón
+            //               },
+            //               child: const Text(
+            //                 "Editar Perfil",
+            //                 style: TextStyle(
+            //                   color: Colors.white,
+            //                   fontSize: 16,
+            //                   fontWeight: FontWeight.bold,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 height: 70,
@@ -879,52 +879,55 @@ class _HomeState extends State<Home> {
                     end: Alignment.bottomRight,
                     colors: isDarkTheme
                         ? [const Color.fromARGB(221, 39, 39, 39), Colors.black54]
-                        : [Colors.grey, Colors.grey.withOpacity(0.2)],
+                        : [const Color.fromARGB(255, 239, 239, 239), const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)],
                   ),
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.abc,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      RichText(
+                          text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Bienvenido\n',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDarkTheme ? Colors.white : const Color.fromARGB(255, 66, 66, 66)),
+                          ),
+                          TextSpan(
+                            text: 'Usuario',
+                            style: TextStyle(fontSize: 14, color: isDarkTheme ? Colors.white : const Color.fromARGB(255, 66, 66, 66)),
                           ),
                         ],
+                      )),
+                      const Spacer(),
+                      Icon(
+                        FontAwesomeIcons.rightFromBracket,
+                        color: Colors.red.shade400,
                       ),
-                      child: const Icon(
-                        Icons.abc,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    RichText(
-                        text: const TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Bienvenido\n',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(
-                          text: 'Abel Balam',
-                          style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 66, 66, 66)),
-                        ),
-                      ],
-                    )),
-                    const Spacer(),
-                    Icon(
-                      FontAwesomeIcons.rightFromBracket,
-                      color: Colors.red.shade400,
-                    ),
-                  ],
+                    ],
+                  ),
                 )),
           ],
         ),
