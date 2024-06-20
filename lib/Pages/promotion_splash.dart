@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PromotionSplashPage extends StatefulWidget {
@@ -66,12 +67,11 @@ class _PromotionSplashPageState extends State<PromotionSplashPage> {
                       _controller.nextPage(
                           duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                     } else {
-                    
-                           Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              'view_Home',
-                              (route) => false,
-                            );
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        'view_Home',
+                        (route) => false,
+                      );
                     }
                   },
                   child: Text(currentPage < 2 ? 'Next' : 'Empezar'),
@@ -90,6 +90,8 @@ class IntroPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive resp = Responsive(context);
+    double widthScreen = resp.width < 600 ? resp.widthPercent(50) : resp.widthPercent(30);
     return Container(
       color: Colors.white,
       child: Column(
@@ -98,8 +100,7 @@ class IntroPage1 extends StatelessWidget {
           // Mostrar la imagen desde los assets
           Image.asset(
             'assets/Order-food-amico.png',
-            width: MediaQuery.of(context).size.width *
-                0.5, // Ancho ajustado al 80% del ancho de la pantalla
+            width: widthScreen, // Ancho ajustado al 80% del ancho de la pantalla
           ),
           const SizedBox(height: 20), // Espacio entre la imagen y el texto
           // Agregar el texto debajo de la imagen
@@ -134,6 +135,8 @@ class IntroPage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive resp = Responsive(context);
+    double widthScreen = resp.width < 600 ? resp.widthPercent(50) : resp.widthPercent(30);
     return Container(
       color: const Color.fromARGB(202, 255, 229, 167),
       child: Column(
@@ -142,8 +145,7 @@ class IntroPage2 extends StatelessWidget {
           // Mostrar la imagen desde los assets
           Image.asset(
             'Online-Groceries-pana.png',
-            width: MediaQuery.of(context).size.width *
-                0.5, // Ancho ajustado al 80% del ancho de la pantalla
+            width: widthScreen, // Ancho ajustado al 80% del ancho de la pantalla
           ),
           const SizedBox(height: 20), // Espacio entre la imagen y el texto
           // Agregar el texto debajo de la imagen
@@ -176,6 +178,8 @@ class IntroPage3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive resp = Responsive(context);
+    double widthScreen = resp.width < 600 ? resp.widthPercent(50) : resp.widthPercent(30);
     return Container(
       color: const Color.fromARGB(255, 255, 250, 205),
       child: Column(
@@ -184,8 +188,7 @@ class IntroPage3 extends StatelessWidget {
           // Mostrar la imagen desde los assets
           Image.asset(
             'In-no-time-cuate.png',
-            width: MediaQuery.of(context).size.width *
-                0.5, // Ancho ajustado al 80% del ancho de la pantalla
+            width: widthScreen, // Ancho ajustado al 80% del ancho de la pantalla
           ),
           const SizedBox(height: 20), // Espacio entre la imagen y el texto
           // Agregar el texto debajo de la imagen
