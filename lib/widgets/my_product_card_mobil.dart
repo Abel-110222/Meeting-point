@@ -55,20 +55,32 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Imagen a la izquierda
-                  Container(
-                    width: 130, // Ancho de la imagen
-                    height: 150, // Alto de la tarjeta
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(widget.url),
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                    ),
-                  ),
+                  widget.skeleton
+                      ? Container(
+                          width: 130, // Ancho de la imagen
+                          height: 150, // Alto de la tarjeta
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                            color: Colors.white,
+                          ),
+                        )
+                      : Container(
+                          width: 130, // Ancho de la imagen
+                          height: 150, // Alto de la tarjeta
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(widget.url),
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                          ),
+                        ),
                   const SizedBox(width: 10), // Espacio entre la imagen y la información
 
                   // Información y botón

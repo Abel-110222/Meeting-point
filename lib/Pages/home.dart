@@ -1,11 +1,13 @@
 // ignore_for_file: unused_local_variable, sized_box_for_whitespace, use_build_context_synchronously
 
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/Pages/categories_screen.dart';
+import 'package:punto_de_reunion/Pages/login_screen.dart';
 import 'package:punto_de_reunion/Pages/organizations_screen.dart';
 import 'package:punto_de_reunion/Pages/products_screen.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
@@ -214,19 +216,36 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   //! CARRITO
-                  SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: Builder(
-                      builder: (BuildContext context) {
-                        return IconButton(
-                          onPressed: () {
-                            Scaffold.of(context).openEndDrawer(); // Abre el EndDrawer
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginPage()),
+                          );
+                        },
+                        child: Text("Iniciar Sesión",
+                            style: TextStyle(fontSize: 15, color: Colors.blue[700])),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return IconButton(
+                              onPressed: () {
+                                Scaffold.of(context).openEndDrawer(); // Abre el EndDrawer
+                              },
+                              icon: const Icon(FontAwesomeIcons.cartShopping),
+                            );
                           },
-                          icon: const Icon(FontAwesomeIcons.cartShopping),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -238,46 +257,43 @@ class _HomeState extends State<Home> {
               color: backgroundColor,
               child: Padding(
                 padding: const EdgeInsets.only(left: 19, bottom: 10, right: 19, top: 10),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
-                      ResponsiveGridRow(
-                        children: <ResponsiveGridCol>[
-                          ResponsiveGridCol(
-                            lg: 6,
-                            xs: 12,
-                            child: SizedBox(
-                              height: 50,
-                              width: resp.widthPercent(30),
-                              child: MyTextFormField(
-                                label: 'Buscar',
-                                maxLength: 25,
-                                fontSize: 14,
-                                fontSizeLabel: 14,
-                                paddingBotton: 0,
-                                borderCircularSize: 10,
-                                borderWrap: true,
-                                backColor: backgroundColor,
-                                underLineColor: Colors.grey,
-                                counterText: false,
-                                textEditingController: findControllerActividades,
-                                showUnderLine: false,
-                                suffixIcon: const Icon(FontAwesomeIcons.magnifyingGlass,
-                                    color: Colors.grey),
-                                validator: (value) {
-                                  return null;
-                                },
-                                onChanged: (text) {
-                                  setState(() {});
-                                },
-                              ),
-                            ),
+                child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
+                  ResponsiveGridRow(
+                    children: <ResponsiveGridCol>[
+                      ResponsiveGridCol(
+                        lg: 6,
+                        xs: 12,
+                        child: SizedBox(
+                          height: 50,
+                          width: resp.widthPercent(30),
+                          child: MyTextFormField(
+                            label: 'Buscar',
+                            maxLength: 25,
+                            fontSize: 14,
+                            fontSizeLabel: 14,
+                            paddingBotton: 0,
+                            borderCircularSize: 10,
+                            borderWrap: true,
+                            backColor: backgroundColor,
+                            underLineColor: Colors.grey,
+                            counterText: false,
+                            textEditingController: findControllerActividades,
+                            showUnderLine: false,
+                            suffixIcon:
+                                const Icon(FontAwesomeIcons.magnifyingGlass, color: Colors.grey),
+                            validator: (value) {
+                              return null;
+                            },
+                            onChanged: (text) {
+                              setState(() {});
+                            },
                           ),
-                        ],
+                        ),
                       ),
-                    ]),
+                    ],
+                  ),
+                ]),
               ),
             ),
           ),
@@ -550,21 +566,26 @@ class _HomeState extends State<Home> {
 
                     const SizedBox(height: 20),
                     //! FOOTER
-                    Visibility(
-                      visible: kIsWeb,
-                      child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Container(
-                            height: 125,
-                            width: resp.width,
-                            child: Text('© 2023 Punto de Reunión. Todos los derechos reservados.',
-                                style: TextStyle(color: textColor)),
-                          )),
-                    )
                   ],
                 ),
               ),
             ),
+          ),
+
+          SliverToBoxAdapter(
+            child: Container(
+                color: backgroundColor,
+                child: Visibility(
+                  visible: kIsWeb,
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Container(
+                        height: 125,
+                        width: resp.width,
+                        child: Text('© 2023 Punto de Reunión. Todos los derechos reservados.',
+                            style: TextStyle(color: textColor)),
+                      )),
+                )),
           ),
         ],
       ),

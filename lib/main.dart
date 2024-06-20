@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/Pages/home.dart';
+import 'package:punto_de_reunion/Pages/login_screen.dart';
 import 'package:punto_de_reunion/Pages/splash_page.dart';
 import 'package:punto_de_reunion/Pages/promotion_splash.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget {
                     colorScheme: const ColorScheme.dark().copyWith(
                       primary: Colors.teal,
                       secondary: Colors.deepOrange,
-                      surface: Colors.grey[900]!,
-                      background: Colors.black,
+                      surface: Colors.grey[600]!,
+                      background: const Color(0xFF111111),
                       error: Colors.red,
                       onPrimary: Colors.white,
                       onSecondary: Colors.white,
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
               'view_Home': (context) => const Home(),
               '/SplashPageRoute': (context) => const SplashPage(),
               '/PromotionSplashPageRoute': (context) => const PromotionSplashPage(),
-              // 'View_Home_web': (context) => const HomeWeb(),
+              'LoginPageRoute': (context) => const LoginPage(),
             },
           );
         },

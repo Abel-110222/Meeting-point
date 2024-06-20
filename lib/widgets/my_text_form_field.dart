@@ -41,6 +41,8 @@ class MyTextFormField extends StatelessWidget {
 
   /// Color de fondo del control
   final Color? backColor;
+  // color del texto
+  final Color? textoColor;
 
   /// Color de la linea y borde del control
   final Color underLineColor;
@@ -98,6 +100,7 @@ class MyTextFormField extends StatelessWidget {
     this.paddingLeft = 10,
     this.paddingRight = 5,
     this.backColor = Colors.white,
+    this.textoColor =  const Color.fromARGB(255, 165, 162, 162),
     this.underLineColor = Colors.transparent,
     required this.textEditingController,
     this.keyboardType = TextInputType.name,
@@ -137,8 +140,8 @@ class MyTextFormField extends StatelessWidget {
             cursorColor: const Color(0xff9f9f9f),
             maxLength: maxLength,
             decoration: InputDecoration(
-              prefixIcon: suffixIcon,
-              // suffixIcon: suffixIcon,
+              // prefixIcon: suffixIcon,
+              suffixIcon: suffixIcon,
               border: showUnderLine ? null : InputBorder.none,
               hintText: '',
               isCollapsed: false,
@@ -147,7 +150,7 @@ class MyTextFormField extends StatelessWidget {
               counterText: counterText as bool ? null : '',
               labelStyle: TextStyle(
                 fontSize: fontSizeLabel,
-                color: const Color.fromARGB(255, 165, 162, 162),
+                color: textoColor,
               ),
               floatingLabelStyle: const TextStyle(fontSize: 12),
               //icon: icon,

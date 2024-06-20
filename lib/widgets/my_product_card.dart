@@ -52,24 +52,36 @@ class _MyProductCardState extends State<MyProductCard> {
           children: [
             // Imagen en la parte superior
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 120, // El 50% del alto de la tarjeta
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.url),
-                  ),
-                  color: theme.primaryColor,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
-              ),
-            ),
+                padding: const EdgeInsets.all(8.0),
+                child: !widget.skeleton
+                    ? Container(
+                        height: 120, // El 50% del alto de la tarjeta
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(widget.url),
+                          ),
+                          color: theme.primaryColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        height: 120, // El 50% del alto de la tarjeta
+                        decoration: BoxDecoration(
+                          color: theme.primaryColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                        ),
+                      )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
