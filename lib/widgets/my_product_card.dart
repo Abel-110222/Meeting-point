@@ -8,6 +8,7 @@ class MyProductCard extends StatefulWidget {
   final String label;
   final String description;
   final String price;
+  
 
   final void Function() onPressed;
   final Widget? image;
