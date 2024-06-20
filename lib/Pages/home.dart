@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
     //! PROVIDER TEMA
     final theme = Theme.of(context);
     final bool isDarkTheme = theme.brightness == Brightness.dark;
-    final backgroundColor = theme.colorScheme.background;
+    final backgroundColor = theme.colorScheme.surface;
     final textColor = theme.textTheme.bodyLarge!.color;
     isLoading =
         categories.isNotEmpty && products.isNotEmpty && organizations.isNotEmpty ? false : true;
@@ -201,7 +201,7 @@ class _HomeState extends State<Home> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Hola Abel\n',
+                                text: 'Hola Usuario\n',
                                 style: TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold, color: textColor),
                               ),
@@ -258,7 +258,6 @@ class _HomeState extends State<Home> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 19, bottom: 10, right: 19, top: 10),
                 child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text('${resp.width}x${resp.height}', style: const TextStyle(fontSize: 12)),
                   ResponsiveGridRow(
                     children: <ResponsiveGridCol>[
                       ResponsiveGridCol(
