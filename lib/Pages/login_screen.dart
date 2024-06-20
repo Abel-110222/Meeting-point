@@ -33,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   void login() async {
     final isOk = formKey.currentState!.validate();
     if (isOk) {
-
       Navigator.pop(context);
     }
   }
@@ -45,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     final theme = Theme.of(context);
     // ignore: unused_local_variable
     final bool isDarkTheme = theme.brightness == Brightness.dark;
-    final backgroundColor = theme.colorScheme.background;
+    final backgroundColor = theme.colorScheme.surface;
     final textColor = theme.textTheme.bodyLarge!.color;
     final cardColor = theme.colorScheme.surface;
     Responsive resp = Responsive(context);
@@ -59,12 +58,14 @@ class _LoginPageState extends State<LoginPage> {
       }),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: !mustBePortrait ? const Color(0xFF2C5364) : backgroundColor,
+          backgroundColor:
+              !mustBePortrait ? const Color(0xFF2C5364) : backgroundColor,
         ),
         body: GestureDetector(
           child: Container(
             decoration: BoxDecoration(
-              color: !mustBePortrait ? const Color(0xFF2C5364) : backgroundColor,
+              color:
+                  !mustBePortrait ? const Color(0xFF2C5364) : backgroundColor,
             ),
             child: ListView(
               children: [
@@ -100,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ],
                                 ),
                                 child: CustomPaint(
-                                    painter: CustomShapePainter(), child: panelInformation()),
+                                    painter: CustomShapePainter(),
+                                    child: panelInformation()),
                               ),
 
                         ///!  Panel Data Input
@@ -176,21 +178,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Card iconButtonAuth({
+  IconButton iconButtonAuth({
     required Function() onPressed,
     required double heightCard,
     required double widthCard,
+    required Color color,
     required Icon icon, // Parámetro para recibir el ícono de awesome_icons
   }) {
-    return Card(
-      child: SizedBox(
-        width: widthCard,
-        height: heightCard,
-        child: IconButton(
-          icon: icon, // Utiliza el ícono recibido como parámetro
-          onPressed: onPressed,
+    return IconButton(
+      style: IconButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
         ),
+        fixedSize: Size(widthCard, heightCard),
+        foregroundColor: color,
       ),
+      icon: icon, // Utiliza el ícono recibido como parámetro
+      onPressed: onPressed,
     );
   }
 
@@ -204,7 +208,9 @@ class _LoginPageState extends State<LoginPage> {
   ) {
     return Form(
       key: formKey,
-      autovalidateMode: activo ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+      autovalidateMode: activo
+          ? AutovalidateMode.onUserInteraction
+          : AutovalidateMode.disabled,
       child: SizedBox(
         width: show ? pResp.width : 340,
         height: show
@@ -236,7 +242,8 @@ class _LoginPageState extends State<LoginPage> {
                     // ignore: sized_box_for_whitespace
                     Container(
                       height: 39,
-                      child: Text("Bienvenido", style: TextStyle(fontSize: 24, color: textColor)),
+                      child: Text("Bienvenido",
+                          style: TextStyle(fontSize: 24, color: textColor)),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -245,33 +252,41 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          color: Colors.black,
                           heightCard: 60,
                           widthCard: show ? 90 : 60,
-                          icon: const Icon(FontAwesomeIcons.github), // Pasa el ícono como parámetro
+                          icon: const Icon(FontAwesomeIcons
+                              .github), // Pasa el ícono como parámetro
                         ),
                         iconButtonAuth(
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          color: Colors.red,
                           heightCard: 60,
                           widthCard: show ? 90 : 60,
-                          icon: const Icon(FontAwesomeIcons.google), // Pasa el ícono como parámetro
+                          icon: const Icon(FontAwesomeIcons
+                              .google), // Pasa el ícono como parámetro
                         ),
                         iconButtonAuth(
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          color: Colors.blue,
                           heightCard: 60,
                           widthCard: show ? 90 : 60,
-                          icon: const Icon(FontAwesomeIcons.facebook), // Pasa el ícono como parámetro
+                          icon: const Icon(FontAwesomeIcons
+                              .facebook), // Pasa el ícono como parámetro
                         ),
                         iconButtonAuth(
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          color: Colors.lightBlueAccent,
                           heightCard: 60,
                           widthCard: show ? 90 : 60,
-                          icon: const Icon(FontAwesomeIcons.microsoft), // Pasa el ícono como parámetro
+                          icon: const Icon(FontAwesomeIcons
+                              .microsoft), // Pasa el ícono como parámetro
                         ),
                       ],
                     ),
@@ -374,7 +389,8 @@ class _LoginPageState extends State<LoginPage> {
                           elevation: 5,
                           child: MyTextFormField(
                               label: 'Confirmar contraseña',
-                              textEditingController: confirmarPasswordController,
+                              textEditingController:
+                                  confirmarPasswordController,
                               backColor: backgColor,
                               underLineColor: textColor,
                               textoColor: textColor,
@@ -463,9 +479,11 @@ class _LoginPageState extends State<LoginPage> {
                       width: 238,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 244, 132, 20),
+                          backgroundColor:
+                              const Color.fromARGB(255, 244, 132, 20),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4), // Bordes cuadrados
+                            borderRadius:
+                                BorderRadius.circular(4), // Bordes cuadrados
                           ),
                           elevation: 5, // Añadir sombra
                           shadowColor: Colors.grey, // Color de la sombra
@@ -526,8 +544,10 @@ class CustomShapePainter extends CustomPainter {
 
     final path = Path()
       ..moveTo(size.width * 0.6, 0)
-      ..quadraticBezierTo(size.width * 0.5, size.height * 0.25, size.width * 0.8, size.height * 0.5)
-      ..quadraticBezierTo(size.width, size.height * 0.75, size.width * 0.8, size.height)
+      ..quadraticBezierTo(size.width * 0.5, size.height * 0.25,
+          size.width * 0.8, size.height * 0.5)
+      ..quadraticBezierTo(
+          size.width, size.height * 0.75, size.width * 0.8, size.height)
       ..lineTo(0, size.height)
       ..lineTo(0, 0)
       ..close();
