@@ -39,6 +39,7 @@ class _MyProductCardState extends State<MyProductCard> {
     final theme = Theme.of(context);
     final backColor = theme.cardColor;
     final textColor = theme.textTheme.bodyLarge!.color;
+    final bool isDarkTheme = theme.brightness == Brightness.dark;
 
     return Card(
       child: Container(
@@ -46,7 +47,7 @@ class _MyProductCardState extends State<MyProductCard> {
         height: 260, // Ajuste en la altura de la tarjeta
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
+          color: isDarkTheme ? Colors.black87 :Colors.white,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,19 +96,19 @@ class _MyProductCardState extends State<MyProductCard> {
                         // Texto de la tarjeta
                         Text(
                           widget.label,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: isDarkTheme ? Colors.white : Colors.black,
                           ),
                         ),
                         Text(
                           widget.description,
                           maxLines: 2, // Número máximo de líneas permitidas
                           overflow: TextOverflow.ellipsis, // Manejo del desbordamiento de texto
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromARGB(255, 201, 200, 200),
+                            color: isDarkTheme ? const Color.fromARGB(255, 115, 115, 115) : const Color.fromARGB(255, 201, 200, 200),
                           ),
                         ),
 
@@ -119,7 +120,7 @@ class _MyProductCardState extends State<MyProductCard> {
                         //         style: TextStyle(
                         //           fontSize: 15,
                         //           fontWeight: FontWeight.bold,
-                        //           color: Colors.black,
+                        //           color: isDarkTheme ? Colors.white : Colors.black,
                         //         ),
                         //       ),
                         //       TextSpan(
@@ -138,11 +139,11 @@ class _MyProductCardState extends State<MyProductCard> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
                   child: Icon(
                     FontAwesomeIcons.heart,
-                    color: Colors.black,
+                    color: isDarkTheme ? Colors.white : Colors.black,
                   ),
                 )
               ],
@@ -155,9 +156,9 @@ class _MyProductCardState extends State<MyProductCard> {
                 padding: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
                   !widget.isCarrito ? widget.price : "",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
+                    color: isDarkTheme ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

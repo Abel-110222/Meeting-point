@@ -11,7 +11,6 @@ class MyProductCardMobil extends StatefulWidget {
   final void Function() onPressed;
   final Widget? image;
   final String url;
-  final Color backColor;
   final bool isCarrito;
 
   const MyProductCardMobil({
@@ -22,7 +21,6 @@ class MyProductCardMobil extends StatefulWidget {
     required this.onPressed,
     required this.image,
     required this.url,
-    this.backColor = Colors.white,
     this.isCarrito = false,
     super.key,
   });
@@ -36,10 +34,11 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textColor = theme.textTheme.bodyLarge!.color;
+    final bool isDarkTheme = theme.brightness == Brightness.dark;
 
     return Card(
       child: Skeletonizer(
-        containersColor: Colors.grey,
+        containersColor: isDarkTheme ? Colors.black87 :Colors.grey,
         enabled: widget.skeleton,
         child: Container(
           width: 300,
@@ -47,7 +46,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: widget.backColor,
+          color: isDarkTheme ? Colors.black87 :Colors.white,
           ),
           child: Stack(
             children: [
@@ -59,12 +58,12 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                       ? Container(
                           width: 130, // Ancho de la imagen
                           height: 150, // Alto de la tarjeta
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10),
                               bottomLeft: Radius.circular(10),
                             ),
-                            color: Colors.white,
+                            color: isDarkTheme ? Colors.black87 : Colors.white,
                           ),
                         )
                       : Container(
@@ -93,10 +92,10 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                         // Texto de la tarjeta
                         Text(
                           widget.label,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: isDarkTheme ? Colors.white : Colors.black,
                           ),
                         ),
                         const SizedBox(height: 4), // Espacio entre las dos líneas de texto
@@ -104,9 +103,9 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                           widget.description,
                           maxLines: 2, // Número máximo de líneas permitidas
                           overflow: TextOverflow.ellipsis, // Manejo del desbordamiento de texto
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromARGB(255, 201, 200, 200),
+                            color: isDarkTheme ? const Color.fromARGB(255, 115, 115, 115) : const Color.fromARGB(255, 201, 200, 200),
                           ),
                         ),
                         // RichText(
@@ -117,7 +116,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                         //         style: TextStyle(
                         //           fontSize: 15,
                         //           fontWeight: FontWeight.bold,
-                        //           color: Colors.black,
+                        //           color: isDarkTheme ? Colors.white : Colors.black,
                         //         ),
                         //       ),
                         //       TextSpan(
@@ -135,9 +134,9 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                         // Precio
                         Text(
                           !widget.isCarrito ? widget.price : "",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
-                            color: Colors.black,
+                            color: isDarkTheme ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -279,7 +278,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 //                           style: TextStyle(
 //                             fontSize: 15,
 //                             fontWeight: FontWeight.bold,
-//                             color: Colors.black,
+//                             color: isDarkTheme ? Colors.white : Colors.black,
 //                           ),
 //                         ),
 //                         TextSpan(
@@ -299,7 +298,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 //                     padding: EdgeInsets.only(right: 5.0),
 //                     child: Icon(
 //                       FontAwesomeIcons.heart,
-//                       color: Colors.black,
+//                       color: isDarkTheme ? Colors.white : Colors.black,
 //                     ),
 //                   ),
 
@@ -308,7 +307,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 //                     !isCarrito ? " \$250.00" : "",
 //                     style: const TextStyle(
 //                       fontSize: 15,
-//                       color: Colors.black,
+//                       color: isDarkTheme ? Colors.white : Colors.black,
 //                       fontWeight: FontWeight.bold,
 //                     ),
 //                   ),
