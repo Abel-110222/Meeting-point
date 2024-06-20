@@ -38,7 +38,8 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 
     return Card(
       child: Skeletonizer(
-        containersColor: isDarkTheme ? Colors.black87 :Colors.grey,
+        containersColor:
+            isDarkTheme ? Color.fromARGB(255, 227, 227, 227) : Colors.grey,
         enabled: widget.skeleton,
         child: Container(
           width: 300,
@@ -46,7 +47,16 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-          color: isDarkTheme ? Colors.black87 :Colors.white,
+            color: isDarkTheme ? const Color(0xFF111111) : Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: isDarkTheme
+                    ? Colors.black.withOpacity(0.4)
+                    : Colors.black.withOpacity(0.2),
+                blurRadius: 6,
+                offset: const Offset(0, 5),
+              ),
+            ],
           ),
           child: Stack(
             children: [
@@ -63,7 +73,9 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                               topLeft: Radius.circular(10),
                               bottomLeft: Radius.circular(10),
                             ),
-                            color: isDarkTheme ? Colors.black87 : Colors.white,
+                            color: isDarkTheme
+                                ? const Color(0xFF111111)
+                                : Colors.white,
                           ),
                         )
                       : Container(

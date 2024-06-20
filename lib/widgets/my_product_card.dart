@@ -47,7 +47,12 @@ class _MyProductCardState extends State<MyProductCard> {
         height: 260, // Ajuste en la altura de la tarjeta
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isDarkTheme ? Colors.black87 :Colors.white,
+          color: isDarkTheme ? const Color(0xFF111111) :Colors.white,
+          boxShadow: [BoxShadow(
+            color: isDarkTheme ? Colors.black.withOpacity(0.4) :Colors.black.withOpacity(0.2),
+            blurRadius: 6,
+            offset: const Offset(0, 5),
+          )],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
