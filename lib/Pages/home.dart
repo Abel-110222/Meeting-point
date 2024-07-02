@@ -206,7 +206,7 @@ class _HomeState extends State<Home> {
                                     fontSize: 25, fontWeight: FontWeight.bold, color: textColor),
                               ),
                               TextSpan(
-                                text: '¿Qué vas a ordenar hoy?',
+                                text: '¿Qué vas a disponer hoy?',
                                 style: TextStyle(fontSize: 15, color: textColor),
                               ),
                             ],
