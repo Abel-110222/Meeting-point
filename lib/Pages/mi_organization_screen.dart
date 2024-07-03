@@ -2,7 +2,6 @@
 
 import 'dart:ui';
 
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -65,22 +64,7 @@ class _MiOrganizationsScreenState extends State<MiOrganizationsScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          actions: [
-            AnimSearchBar(
-              searchIconColor: textColor,
-              textFieldIconColor: textColor,
-              color: backgroundColor,
-              width: 300,
-              textController: textController,
-              onSuffixTap: () {
-                setState(() {
-                  textController.clear();
-                });
-              },
-              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-              onSubmitted: (String) {},
-            ),
-          ],
+          
         ),
         body: isLoading
             ? const Center(
@@ -199,6 +183,7 @@ class _MiOrganizationsScreenState extends State<MiOrganizationsScreen> {
                                             padding:
                                                 const EdgeInsets.only(left: 15, right: 5, top: 15),
                                             child: MyOrganizationCard(
+                                              myOrganization: true,
                                               onPressed: () {},
                                               image: itemOrganization.imageUrl,
                                               description: itemOrganization.description,

@@ -38,8 +38,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 
     return Card(
       child: Skeletonizer(
-        containersColor:
-            isDarkTheme ? const Color.fromARGB(255, 227, 227, 227) : Colors.grey,
+        containersColor: isDarkTheme ? const Color.fromARGB(255, 227, 227, 227) : Colors.grey,
         enabled: widget.skeleton,
         child: Container(
           width: 300,
@@ -50,9 +49,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
             color: isDarkTheme ? const Color(0xFF111111) : Colors.white,
             boxShadow: [
               BoxShadow(
-                color: isDarkTheme
-                    ? Colors.black.withOpacity(0.4)
-                    : Colors.black.withOpacity(0.2),
+                color: isDarkTheme ? Colors.black.withOpacity(0.4) : Colors.black.withOpacity(0.2),
                 blurRadius: 6,
                 offset: const Offset(0, 5),
               ),
@@ -66,16 +63,14 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                   // Imagen a la izquierda
                   widget.skeleton
                       ? Container(
-                          width: 130, // Ancho de la imagen
-                          height: 150, // Alto de la tarjeta
+                          width: 100, // Ancho de la imagen
+                          height: 120, // Alto de la tarjeta
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10),
                               bottomLeft: Radius.circular(10),
                             ),
-                            color: isDarkTheme
-                                ? const Color(0xFF111111)
-                                : Colors.white,
+                            color: isDarkTheme ? const Color(0xFF111111) : Colors.white,
                           ),
                         )
                       : Container(
@@ -96,20 +91,25 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
 
                   // Información y botón
                   SizedBox(
-                    width: 300,
+                    width: 200,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 30),
                         // Texto de la tarjeta
                         Text(
                           widget.label,
+                          maxLines: 2,
+                          softWrap: true, // Permitir el ajuste del texto
+                          overflow: TextOverflow
+                              .ellipsis, // Manejar el desbordamiento con puntos suspensivos
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 11,
                             fontWeight: FontWeight.bold,
                             color: isDarkTheme ? Colors.white : Colors.black,
                           ),
                         ),
+
                         const SizedBox(height: 4), // Espacio entre las dos líneas de texto
                         Text(
                           widget.description,
@@ -117,7 +117,9 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
                           overflow: TextOverflow.ellipsis, // Manejo del desbordamiento de texto
                           style: TextStyle(
                             fontSize: 12,
-                            color: isDarkTheme ? const Color.fromARGB(255, 115, 115, 115) : const Color.fromARGB(255, 201, 200, 200),
+                            color: isDarkTheme
+                                ? const Color.fromARGB(255, 115, 115, 115)
+                                : const Color.fromARGB(255, 201, 200, 200),
                           ),
                         ),
                         // RichText(

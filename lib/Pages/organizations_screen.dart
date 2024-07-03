@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -63,8 +64,25 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
       );
     } else {
       return Scaffold(
+        
         appBar: AppBar(
-         
+          surfaceTintColor: backgroundColor,
+          elevation: 0,
+          actions: [
+            AnimSearchBar(
+              width: 300,
+              searchIconColor: textColor,
+              color: backgroundColor,
+              textController: textController,
+              onSuffixTap: () {
+                setState(() {
+                  textController.clear();
+                });
+              },
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              onSubmitted: (String) {},
+            ),
+          ],
         ),
         body: isLoading
             ? const Center(

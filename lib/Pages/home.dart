@@ -203,11 +203,11 @@ class _HomeState extends State<Home> {
                               TextSpan(
                                 text: 'Hola Usuario\n',
                                 style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold, color: textColor),
+                                    fontSize: 20, fontWeight: FontWeight.bold, color: textColor),
                               ),
                               TextSpan(
                                 text: '¿Qué vas a ordenar hoy?',
-                                style: TextStyle(fontSize: 15, color: textColor),
+                                style: TextStyle(fontSize: 13, color: textColor),
                               ),
                             ],
                           ),
@@ -903,7 +903,7 @@ class _HomeState extends State<Home> {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PerfilScreen()),
+                            MaterialPageRoute(builder: (context) => const PerfilScreen()),
                           );
                         },
                         child: Container(

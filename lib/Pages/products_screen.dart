@@ -67,6 +67,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
           actions: [
             AnimSearchBar(
               width: 300,
+              searchIconColor: textColor,
+              color: backgroundColor,
               textController: textController,
               onSuffixTap: () {
                 setState(() {
@@ -104,7 +106,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     height: resp.height,
                     width: resp.width,
                     // padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    color: Colors.white,
+                    color: backgroundColor,
                     //decoration: BoxDecoration(border: Border.all(width: 0, color: Colors.amber)),
                     child: Column(
                       children: [
