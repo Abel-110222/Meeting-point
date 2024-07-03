@@ -67,6 +67,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           actions: [
             AnimSearchBar(
               width: 300,
+              color: backgroundColor,
+              searchIconColor: textColor,
               textController: textController,
               onSuffixTap: () {
                 setState(() {
@@ -104,7 +106,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     height: resp.height,
                     width: resp.width,
                     // padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    color: Colors.white,
+                    color: backgroundColor,
                     //decoration: BoxDecoration(border: Border.all(width: 0, color: Colors.amber)),
                     child: Column(
                       children: [

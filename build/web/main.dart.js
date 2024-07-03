@@ -87353,7 +87353,7 @@ s=A.U(a2)
 r=s.ay.CW
 q=s.p3.y.b
 p=t.p
-o=A.rb(A.b([A.at0(B.i,new A.aii(),new A.aij(c),B.l,c.e,300)],p),b,!0,b,b,1,b,b,b,!1,b,!1,b,b,b,b,!0,b,b,b,b,b,b,b,b,b,1,b)
+o=A.rb(A.b([A.at0(r,new A.aii(),new A.aij(c),q,c.e,300)],p),b,!0,b,b,1,b,b,b,!1,b,!1,b,b,b,b,!0,b,b,b,b,b,b,b,b,b,1,b)
 n=A.ld(a2).qf(A.bH([B.ai,B.aJ],t.A))
 m=a0.b
 l=a0.a
@@ -87364,7 +87364,7 @@ h=t.l7
 g=J.yR(i,h)
 for(f=t.w,e=0;e<i;++e){d=A.bn(a2,b,f).w.a.a>=760?2:1
 g[e]=A.cb(A.pc(d,new A.ain(c,e,a2,r,q,a0),h),B.q,B.t,B.o)}h=A.bU(g,B.q,B.t,B.o)
-l=A.B1(n,A.dv(b,A.aJ(b,A.bU(A.b([A.jn(A.pb(A.b([new A.aZ(B.fp,k,b),new A.aZ(B.fo,j,b),B.bB,h],p),b),1)],p),B.q,B.t,B.o),B.j,B.i,b,b,b,m,b,b,b,b,l),B.K,!1,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,new A.aio(a2),b,b,b))
+l=A.B1(n,A.dv(b,A.aJ(b,A.bU(A.b([A.jn(A.pb(A.b([new A.aZ(B.fp,k,b),new A.aZ(B.fo,j,b),B.bB,h],p),b),1)],p),B.q,B.t,B.o),B.j,r,b,b,b,m,b,b,b,b,l),B.K,!1,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,new A.aio(a2),b,b,b))
 p=l
 return A.iD(o,b,p,b,b,b,!1,b,b,B.b4,b)}}
 A.aij.prototype={
@@ -87457,8 +87457,8 @@ j=a1
 return A.iD(a1,a1,new A.J3(k,B.as,!1,a0.Q,a1,j,a1,!1,a1,0,a1,a1,B.K,B.kn,a1,B.P,a1),i,B.y,l,!0,p,a0.r,B.ic,!1)},
 ahr(a,b){var s,r,q,p,o,n,m,l,k=null,j=t.t_,i=b?A.b([B.N,B.J],j):A.b([B.mG,A.M(51,243,228,228)],j),h=A.aJ(k,k,B.j,k,k,new A.b4(k,A.a1N(k,B.lB,b,k),k,k,k,k,B.B),k,100,k,k,k,k,100),g=t.p
 h=A.bU(A.b([h,B.kF,A.co("M E T I N G   P O I N T",k,k,k,k,A.bB(k,k,b?B.i:B.l,k,k,k,k,k,k,k,k,22,k,k,k,k,k,!0,k,k,k,k,k,k,k,k),k,k),new A.aZ(B.na,A.aJ(k,k,B.j,k,k,new A.b4(k,k,new A.d_(B.n,B.n,new A.b_(B.iH,1,B.A,-1),B.n),k,k,k,B.B),k,k,k,k,k,k,k),k)],g),B.q,B.t,B.o)
-s=A.mt(k,k,k,!0,B.H3,new A.akr(a),k,B.UI,k,k)
-r=A.mt(k,k,k,!0,B.GS,new A.aks(a),k,B.UC,k,k)
+s=A.mt(k,k,k,!0,B.H3,new A.akr(a),k,B.UH,k,k)
+r=A.mt(k,k,k,!0,B.GS,new A.aks(a),k,B.UB,k,k)
 q=A.mt(k,k,k,!0,B.GQ,new A.akt(a),k,B.US,k,k)
 p=A.b([new A.aZ(B.n8,A.mt(k,k,k,!0,k,new A.aku(a),k,B.UU,k,k),k),new A.aZ(B.n8,A.mt(k,k,k,!0,k,new A.akv(a),k,B.UT,k,k),k)],g)
 o=A.aJ(k,k,B.j,k,k,B.lL,k,k,k,k,k,k,k)
@@ -87466,7 +87466,7 @@ n=A.cb(A.b([A.co("Configuraci\xf3n",k,k,k,k,A.bB(k,k,b?B.i:B.l,k,k,k,k,k,k,k,k,1
 m=!b?B.Gg:B.Gf
 m=A.fk(m,b?B.i:B.l,k,k)
 l=b?" Modo claro ":" Modo oscuro "
-h=A.jn(A.pb(A.b([h,new A.aZ(B.Fs,A.bU(A.b([s,r,q,new A.y5(B.GR,B.UF,p,k),B.eR,o,new A.aZ(B.Fl,n,k),A.mt(k,k,k,!0,m,new A.akw(a),k,A.co(l,k,k,k,k,A.bB(k,k,b?B.i:B.l,k,k,k,k,k,k,k,k,k,k,k,k,k,k,!0,k,k,k,k,k,k,k,k),k,k),A.auS(new A.OL(b,new A.akx(a),B.i,A.M(B.c.b4(127.5),255,255,255),k),0.8),k),B.eR,A.aJ(k,k,B.j,k,k,B.lL,k,k,k,k,k,k,k)],g),B.q,B.t,B.o),k)],g),B.aL),1)
+h=A.jn(A.pb(A.b([h,new A.aZ(B.Fs,A.bU(A.b([s,r,q,new A.y5(B.GR,B.UE,p,k),B.eR,o,new A.aZ(B.Fl,n,k),A.mt(k,k,k,!0,m,new A.akw(a),k,A.co(l,k,k,k,k,A.bB(k,k,b?B.i:B.l,k,k,k,k,k,k,k,k,k,k,k,k,k,k,!0,k,k,k,k,k,k,k,k),k,k),A.auS(new A.OL(b,new A.akx(a),B.i,A.M(B.c.b4(127.5),255,255,255),k),0.8),k),B.eR,A.aJ(k,k,B.j,k,k,B.lL,k,k,k,k,k,k,k)],g),B.q,B.t,B.o),k)],g),B.aL),1)
 j=b?A.b([B.Cz,B.J],j):A.b([B.mG,A.M(51,243,228,228)],j)
 s=A.yO(!1,!0,A.aJ(k,B.H_,B.j,k,k,new A.b4(B.bz,k,k,k,A.b([new A.d0(2,B.bd,A.M(51,0,0,0),B.uj,4)],t.V),k,B.dM),k,40,k,k,k,k,40),k,!0,k,k,k,k,k,k,k,k,k,new A.aky(a),k,k,k,k)
 r=A.bA(k,A.bB(k,k,b?B.i:B.b5,k,k,k,k,k,k,k,k,16,k,k,B.al,k,k,!0,k,k,k,k,k,k,k,k),"Bienvenido\n")
@@ -87900,14 +87900,14 @@ A.amR.prototype={
 $0(){},
 $S:0}
 A.tH.prototype={
-G(a){var s,r,q,p,o,n=null,m=A.l9(a),l=A.U(a),k=l.ay.cy,j=l.p3.y.b,i=A.rb(n,n,!0,n,n,1,n,n,n,!1,n,!1,n,n,A.mf(n,B.H4,new A.aa6(a),n,n,n),n,!0,n,n,n,n,n,B.Uy,n,n,n,1,n),h=m.a,g=m.b,f=t.p,e=A.ed(A.hN(B.br,A.b([B.Cf,A.Ab(0,new A.xb(A.fk(B.GC,k,n,15),j,n,15,n),n,n,n,0,n,n)],f),B.P,B.bP),n,n),d=A.b([A.mP(A.uG(n,n,B.Hg,n,"Abel",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hj,n,"Balam",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hi,n,"abelbalam.98@gmail.com",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hf,n,"9995095720",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hk,n,n,n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hh,n,"01/01/1970",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12)],t.SE),c=t.S
-c=A.cb(A.b([A.azR(1,new A.aa7(),1,c),B.UN,A.azR(1,new A.aa8(),2,c),B.UV],f),B.q,B.t,B.o)
-s=A.mt(n,n,n,!0,B.nN,new A.aa9(),n,B.UL,B.nO,n)
-r=A.mt(n,n,n,!0,B.GT,new A.aaa(),n,B.UD,B.nO,n)
+G(a){var s,r,q,p,o,n=null,m=A.l9(a),l=A.U(a),k=l.ay.cy,j=l.p3.y.b,i=A.rb(n,n,!0,n,n,1,n,n,n,!1,n,!1,n,n,A.mf(n,B.H4,new A.aa6(a),n,n,n),n,!0,n,n,n,n,n,B.UN,n,n,n,1,n),h=m.a,g=m.b,f=t.p,e=A.ed(A.hN(B.br,A.b([B.Cf,A.Ab(0,new A.xb(A.fk(B.GC,k,n,15),j,n,15,n),n,n,n,0,n,n)],f),B.P,B.bP),n,n),d=A.b([A.mP(A.uG(n,n,B.Hg,n,"Abel",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hj,n,"Balam",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hi,n,"abelbalam.98@gmail.com",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hf,n,"9995095720",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hk,n,n,n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12),A.mP(A.uG(n,n,B.Hh,n,"01/01/1970",n,n,n,1,!1,n,n,n,!1,n,n),4,4,6,4,12)],t.SE),c=t.S
+c=A.cb(A.b([A.azR(1,new A.aa7(),1,c),B.UM,A.azR(1,new A.aa8(),2,c),B.UV],f),B.q,B.t,B.o)
+s=A.mt(n,n,n,!0,B.nN,new A.aa9(),n,B.UK,B.nO,n)
+r=A.mt(n,n,n,!0,B.GT,new A.aaa(),n,B.UC,B.nO,n)
 q=m.a>400?300:1/0
 p=A.a01(B.bK,B.A,1)
 o=A.cH(5)
-return A.iD(i,n,A.pb(A.b([A.aJ(n,A.bU(A.b([e,B.bO,B.UJ,new A.q4(d,B.q,12,n),B.bO,B.Uz,c,B.bO,s,r,B.bO,A.ed(A.aJ(n,A.ava(B.GX,B.UG,new A.aab()),B.j,n,n,new A.b4(B.DQ,n,p,o,n,n,B.B),n,n,n,n,n,n,q),n,n)],f),B.be,B.t,B.o),B.j,k,n,n,n,g,n,B.Fu,n,n,h)],f),n),n,n,n,!1,n,n,B.b4,n)}}
+return A.iD(i,n,A.pb(A.b([A.aJ(n,A.bU(A.b([e,B.bO,B.UI,new A.q4(d,B.q,12,n),B.bO,B.Uy,c,B.bO,s,r,B.bO,A.ed(A.aJ(n,A.ava(B.GX,B.UF,new A.aab()),B.j,n,n,new A.b4(B.DQ,n,p,o,n,n,B.B),n,n,n,n,n,n,q),n,n)],f),B.be,B.t,B.o),B.j,k,n,n,n,g,n,B.Fu,n,n,h)],f),n),n,n,n,!1,n,n,B.b4,n)}}
 A.aa6.prototype={
 $0(){A.dh(this.a).fZ(null)},
 $S:0}
@@ -88020,10 +88020,10 @@ G(a){var s=null,r=A.l9(a).a
 return A.aJ(s,A.bU(A.b([A.Ky("assets/Order-food-amico.png",s,r<600?r*50/100:r*30/100),B.bO,B.bO,B.UQ,B.bB,B.UW],t.p),B.q,B.c6,B.o),B.j,B.i,s,s,s,s,s,s,s,s,s)}}
 A.KH.prototype={
 G(a){var s=null,r=A.l9(a).a
-return A.aJ(s,A.bU(A.b([A.Ky("Online-Groceries-pana.png",s,r<600?r*50/100:r*30/100),B.bO,B.UP,B.bB,B.UA],t.p),B.q,B.c6,B.o),B.j,B.Cx,s,s,s,s,s,s,s,s,s)}}
+return A.aJ(s,A.bU(A.b([A.Ky("Online-Groceries-pana.png",s,r<600?r*50/100:r*30/100),B.bO,B.UP,B.bB,B.Uz],t.p),B.q,B.c6,B.o),B.j,B.Cx,s,s,s,s,s,s,s,s,s)}}
 A.KI.prototype={
 G(a){var s=null,r=A.l9(a).a
-return A.aJ(s,A.bU(A.b([A.Ky("In-no-time-cuate.png",s,r<600?r*50/100:r*30/100),B.bO,B.UR,B.bB,B.UH],t.p),B.q,B.c6,B.o),B.j,B.Ed,s,s,s,s,s,s,s,s,s)}}
+return A.aJ(s,A.bU(A.b([A.Ky("In-no-time-cuate.png",s,r<600?r*50/100:r*30/100),B.bO,B.UR,B.bB,B.UG],t.p),B.q,B.c6,B.o),B.j,B.Ed,s,s,s,s,s,s,s,s,s)}}
 A.uq.prototype={
 G(a){return A.aJw(B.i,B.PN,B.y2,new A.aer(),new A.aes(),new A.aet())}}
 A.aet.prototype={
@@ -92623,8 +92623,8 @@ B.C6=new A.Ib(1,"viewport")
 B.Ca=new A.rl(null,null,null,null,null,null,null)
 B.Cb=new A.oa(null)
 B.SN=new A.v(!0,B.dj,null,null,null,null,15,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UB=new A.c6("Ver detalles",null,B.SN,null,null,null,null,null,null,null)
-B.Cc=new A.m2(B.O,null,null,B.UB,null)
+B.UA=new A.c6("Ver detalles",null,B.SN,null,null,null,null,null,null,null)
+B.Cc=new A.m2(B.O,null,null,B.UA,null)
 B.Cd=new A.x9(null,null,null,null,null,null,null,null,null)
 B.Ce=new A.xa(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.M4=new A.kR("https://cdn.pixabay.com/photo/2023/09/30/09/11/dachshund-8285216_1280.jpg",1,null)
@@ -94411,22 +94411,22 @@ B.MU=new A.zQ(null)
 B.FB=new A.ao(23,0,0,0)
 B.ca=new A.Pw(1,"down")
 B.U7=new A.v(!0,B.bK,null,null,null,null,14,null,null,0.2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UM=new A.c6(".....",null,B.U7,B.dC,null,null,null,null,null,null)
-B.O1=new A.AU(3,B.UM,null)
+B.UL=new A.c6(".....",null,B.U7,B.dC,null,null,null,null,null,null)
+B.O1=new A.AU(3,B.UL,null)
 B.Jo=A.b(s([B.O1]),t.p)
 B.O9=new A.lc(B.a2,B.t,B.o,B.q,null,B.ca,null,B.Jo,null)
 B.MV=new A.aZ(B.FB,B.O9,null)
 B.n9=new A.ao(15,5,20,0)
 B.zH=new A.v(!0,B.l,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UK=new A.c6("Cangreburguer",null,B.zH,null,null,null,null,null,null,null)
+B.UJ=new A.c6("Cangreburguer",null,B.zH,null,null,null,null,null,null,null)
 B.TF=new A.v(!0,B.l,null,null,null,null,12,B.al,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.zI=new A.c6("$12.05",null,B.TF,null,null,null,null,null,null,null)
-B.Io=A.b(s([B.UK,B.zI]),t.p)
+B.Io=A.b(s([B.UJ,B.zI]),t.p)
 B.O5=new A.lc(B.a2,B.ep,B.o,B.q,null,B.ca,null,B.Io,null)
 B.ut=new A.aZ(B.n9,B.O5,null)
-B.UE=new A.c6("Total",null,B.zH,null,null,null,null,null,null,null)
+B.UD=new A.c6("Total",null,B.zH,null,null,null,null,null,null,null)
 B.hJ=new A.up(1,null)
-B.IP=A.b(s([B.UE,B.hJ,B.zI]),t.p)
+B.IP=A.b(s([B.UD,B.hJ,B.zI]),t.p)
 B.O6=new A.lc(B.a2,B.t,B.o,B.q,null,B.ca,null,B.IP,null)
 B.MW=new A.aZ(B.n9,B.O6,null)
 B.MY=new A.zU(null)
@@ -95095,22 +95095,22 @@ B.TO=new A.v(!0,B.i,null,"Roboto",null,null,null,null,null,null,null,null,null,n
 B.TE=new A.v(!0,B.i,null,"Roboto",null,null,null,null,null,null,null,null,null,null,null,null,null,B.e,null,null,null,"whiteMountainView labelMedium",null,null,null,null)
 B.Ti=new A.v(!0,B.i,null,"Roboto",null,null,null,null,null,null,null,null,null,null,null,null,null,B.e,null,null,null,"whiteMountainView labelSmall",null,null,null,null)
 B.Ux=new A.e8(B.T1,B.Uf,B.TY,B.RL,B.TR,B.T_,B.Ui,B.Se,B.SG,B.TJ,B.RD,B.U_,B.TO,B.TE,B.Ti)
-B.Uy=new A.c6("Perfil de usuario",null,null,null,null,null,null,null,null,null)
 B.SC=new A.v(!0,null,null,null,null,null,16,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Uz=new A.c6("G\xe9nero",null,B.SC,null,null,null,null,null,null,null)
+B.Uy=new A.c6("G\xe9nero",null,B.SC,null,null,null,null,null,null,null)
 B.kR=new A.v(!0,B.bK,null,null,null,null,16,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UA=new A.c6("Realizamos entregas a domicilio en toda la ciudad para que recibas tus productos en la comodidad de tu hogar.",null,B.kR,B.d_,null,null,null,null,null,null)
-B.UC=new A.c6(" Productos ",null,null,null,null,null,null,null,null,null)
-B.UD=new A.c6("Cerrar Sesi\xf3n",null,null,null,null,null,null,null,null,null)
-B.UF=new A.c6("Organizaciones",null,null,null,null,null,null,null,null,null)
+B.Uz=new A.c6("Realizamos entregas a domicilio en toda la ciudad para que recibas tus productos en la comodidad de tu hogar.",null,B.kR,B.d_,null,null,null,null,null,null)
+B.UB=new A.c6(" Productos ",null,null,null,null,null,null,null,null,null)
+B.UC=new A.c6("Cerrar Sesi\xf3n",null,null,null,null,null,null,null,null,null)
+B.UE=new A.c6("Organizaciones",null,null,null,null,null,null,null,null,null)
 B.Tb=new A.v(!0,B.i,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UG=new A.c6("Eliminar Cuenta",null,B.Tb,null,null,null,null,null,null,null)
-B.UH=new A.c6("Crea tu propia organizaci\xf3n y empieza a vender tus productos de manera f\xe1cil y r\xe1pida a trav\xe9s de nuestra plataforma.",null,B.kR,B.d_,null,null,null,null,null,null)
-B.UI=new A.c6(" Home ",null,null,null,null,null,null,null,null,null)
+B.UF=new A.c6("Eliminar Cuenta",null,B.Tb,null,null,null,null,null,null,null)
+B.UG=new A.c6("Crea tu propia organizaci\xf3n y empieza a vender tus productos de manera f\xe1cil y r\xe1pida a trav\xe9s de nuestra plataforma.",null,B.kR,B.d_,null,null,null,null,null,null)
+B.UH=new A.c6(" Home ",null,null,null,null,null,null,null,null,null)
 B.Tr=new A.v(!0,null,null,null,null,null,24,B.al,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UJ=new A.c6("Informaci\xf3n de tu cuenta",null,B.Tr,null,null,null,null,null,null,null)
-B.UL=new A.c6("Cambiar contrase\xf1a",null,null,null,null,null,null,null,null,null)
-B.UN=new A.c6("Hombre",null,null,null,null,null,null,null,null,null)
+B.UI=new A.c6("Informaci\xf3n de tu cuenta",null,B.Tr,null,null,null,null,null,null,null)
+B.UK=new A.c6("Cambiar contrase\xf1a",null,null,null,null,null,null,null,null,null)
+B.UM=new A.c6("Hombre",null,null,null,null,null,null,null,null,null)
+B.UN=new A.c6("Perfil de usuario ",null,null,null,null,null,null,null,null,null)
 B.UO=new A.c6("Skip",null,null,null,null,null,null,null,null,null)
 B.kT=new A.v(!0,B.l,null,null,null,null,24,B.al,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.UP=new A.c6("ENTREGA HASTA TU LUGAR",null,B.kT,null,null,null,null,null,null,null)
