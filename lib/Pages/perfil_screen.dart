@@ -26,7 +26,7 @@ class PerfilScreen extends StatelessWidget {
             // Acción para retroceder
           },
         ),
-        title: const Text('Perfil de usuario'),
+        title: const Text('Perfil de usuario '  ),
       ),
       body: ListView(
         children: [
