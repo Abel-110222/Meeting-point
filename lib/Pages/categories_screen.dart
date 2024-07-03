@@ -12,6 +12,7 @@ import 'package:punto_de_reunion/providers/categories_provider.dart';
 import 'package:punto_de_reunion/utils/responsive.dart';
 import 'package:punto_de_reunion/widgets/my_category_card.dart';
 import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -119,14 +120,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: 'NUESTRAS ORGANIZACIONES\n',
+                                        text: 'NUESTRAS CATEGORÍAS\n',
                                         style: TextStyle(
                                             fontSize: 35,
                                             fontWeight: FontWeight.bold,
                                             color: textColor),
                                       ),
                                       const TextSpan(
-                                        text: 'Encontra tu organización favorita',
+                                        text: 'Escoje tu categoría favorita',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: Color.fromARGB(255, 201, 200, 200)),
@@ -179,71 +180,39 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              !isLoading
-                                  ? Column(
-                                      children: List.generate(
-                                        (categories.length / 2)
-                                            .ceil(), // Dividir el número total de elementos entre 2 para obtener la cantidad de filas
-                                        (rowIndex) {
-                                          return Row(
-                                            children: List.generate(
-                                              MediaQuery.of(context).size.width >= 760
-                                                  ? 2
-                                                  : 1, // Verificar el ancho de la pantalla
-                                              (columnIndex) {
-                                                final index = rowIndex * 2 + columnIndex;
-                                                if (index < categories.length) {
-                                                  // Verificar si el índice es válido
-                                                  final product = categories[index];
-                                                  return SizedBox(
-                                                    width: MediaQuery.of(context).size.width / 2,
-                                                    height: 180,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 15, right: 5, top: 15),
-                                                      child: MyCategoryCard(
-                                                        skeleton: isLoading,
-                                                        label: product.name!,
-                                                        backColor: backgroundColor,
-                                                        textColor: textColor,
-                                                        width: 300,
-                                                        height: 250,
-                                                        onPressed: () {},
-                                                        image: const Icon(Icons.abc),
-                                                        widthScreen: resp.width,
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return const SizedBox(); // Devuelve un contenedor vacío si el índice está fuera de rango
-                                                }
-                                              },
+                              ResponsiveGridRow(
+                                rowSegments: 12,
+                                children: List.generate(
+                                  categories.length,
+                                  (index) {
+                                    final category = categories[index];
+                                    return ResponsiveGridCol(
+                                      xs: 12,
+                                      sm: 6,
+                                      md: 6,
+                                      lg: 6,
+                                      xl: 3,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15, right: 5, top: 15),
+                                            child: MyCategoryCard(
+                                              skeleton: isLoading,
+                                              label: category.name!,
+                                              backColor: backgroundColor,
+                                              textColor: textColor,
+                                              width: resp.width,
+                                              height: 250,
+                                              onPressed: () {},
+                                              image: const Icon(Icons.abc),
+                                              widthScreen: resp.width,
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: categories.length,
-                                      itemBuilder: (context, index) {
-                                        final category = categories[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.only(left: 30, right: 5),
-                                          child: MyCategoryCard(
-                                            skeleton: isLoading,
-                                            label: category.name!,
-                                            backColor: backgroundColor,
-                                            textColor: textColor,
-                                            width: 300,
-                                            height: 250,
-                                            onPressed: () {},
-                                            image: const Icon(Icons.abc),
-                                            widthScreen: resp.width,
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                          )),
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),

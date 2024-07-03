@@ -57,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         PointerDeviceKind.mouse,
       }),
       child: Scaffold(
+        persistentFooterAlignment: AlignmentDirectional.centerStart,
         appBar: AppBar(
           backgroundColor: !mustBePortrait ? const Color(0xFF2C5364) : backgroundColor,
         ),
