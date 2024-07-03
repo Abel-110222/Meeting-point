@@ -39,7 +39,7 @@ class _MyProductCardMobilState extends State<MyProductCardMobil> {
     return Card(
       child: Skeletonizer(
         containersColor:
-            isDarkTheme ? Color.fromARGB(255, 227, 227, 227) : Colors.grey,
+            isDarkTheme ? const Color.fromARGB(255, 227, 227, 227) : Colors.grey,
         enabled: widget.skeleton,
         child: Container(
           width: 300,

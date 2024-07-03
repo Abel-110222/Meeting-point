@@ -1,14 +1,14 @@
 // ignore_for_file: unused_local_variable, sized_box_for_whitespace, use_build_context_synchronously
 
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:punto_de_reunion/Pages/categories_screen.dart';
 import 'package:punto_de_reunion/Pages/login_screen.dart';
+import 'package:punto_de_reunion/Pages/mi_organization_screen.dart';
 import 'package:punto_de_reunion/Pages/organizations_screen.dart';
+import 'package:punto_de_reunion/Pages/perfil_screen.dart';
 import 'package:punto_de_reunion/Pages/products_screen.dart';
 import 'package:punto_de_reunion/bloc/theme.dart';
 import 'package:punto_de_reunion/models/category/categories_model.dart';
@@ -419,6 +419,7 @@ class _HomeState extends State<Home> {
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 30, right: 5),
                                   child: MyCategoryCard(
+                                    vTemp: false,
                                     skeleton: isLoading,
                                     label: "",
                                     backColor: backgroundColor,
@@ -440,6 +441,7 @@ class _HomeState extends State<Home> {
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 30, right: 5),
                                   child: MyCategoryCard(
+                                    vTemp: false,
                                     skeleton: isLoading,
                                     label: category.name!,
                                     backColor: backgroundColor,
@@ -608,7 +610,10 @@ class _HomeState extends State<Home> {
             end: Alignment.bottomRight,
             colors: isDarkTheme
                 ? [Colors.black87, Colors.black54]
-                : [const Color.fromARGB(255, 239, 239, 239), const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)],
+                : [
+                    const Color.fromARGB(255, 239, 239, 239),
+                    const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)
+                  ],
           ),
         ),
         child: Column(
@@ -626,9 +631,8 @@ class _HomeState extends State<Home> {
                         height: 100,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: const AssetImage('assets/logo.png'),
-                            invertColors: isDarkTheme
-                          ),
+                              image: const AssetImage('assets/logo.png'),
+                              invertColors: isDarkTheme),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -716,7 +720,12 @@ class _HomeState extends State<Home> {
                             child: ListTile(
                               title: const Text('Mi Organización'),
                               onTap: () {
-                                // Acción cuando se toca la opción 2
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MiOrganizationsScreen()),
+                                );
                               },
                             ),
                           ),
@@ -879,32 +888,44 @@ class _HomeState extends State<Home> {
                     end: Alignment.bottomRight,
                     colors: isDarkTheme
                         ? [const Color.fromARGB(221, 39, 39, 39), Colors.black54]
-                        : [const Color.fromARGB(255, 239, 239, 239), const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)],
+                        : [
+                            const Color.fromARGB(255, 239, 239, 239),
+                            const Color.fromARGB(255, 243, 228, 228).withOpacity(0.2)
+                          ],
                   ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: Row(
                     children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.abc,
-                          size: 20,
-                          color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => PerfilScreen()),
+                          );
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.abc,
+                            size: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -913,11 +934,20 @@ class _HomeState extends State<Home> {
                         children: [
                           TextSpan(
                             text: 'Bienvenido\n',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDarkTheme ? Colors.white : const Color.fromARGB(255, 66, 66, 66)),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: isDarkTheme
+                                    ? Colors.white
+                                    : const Color.fromARGB(255, 66, 66, 66)),
                           ),
                           TextSpan(
                             text: 'Usuario',
-                            style: TextStyle(fontSize: 14, color: isDarkTheme ? Colors.white : const Color.fromARGB(255, 66, 66, 66)),
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: isDarkTheme
+                                    ? Colors.white
+                                    : const Color.fromARGB(255, 66, 66, 66)),
                           ),
                         ],
                       )),

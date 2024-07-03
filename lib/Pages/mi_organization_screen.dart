@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -13,14 +14,14 @@ import 'package:punto_de_reunion/widgets/my_filter_card_product.dart';
 import 'package:punto_de_reunion/widgets/my_organization_card.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-class OrganizationsScreen extends StatefulWidget {
-  const OrganizationsScreen({super.key});
+class MiOrganizationsScreen extends StatefulWidget {
+  const MiOrganizationsScreen({super.key});
 
   @override
-  _OrganizationsScreenState createState() => _OrganizationsScreenState();
+  _MiOrganizationsScreenState createState() => _MiOrganizationsScreenState();
 }
 
-class _OrganizationsScreenState extends State<OrganizationsScreen> {
+class _MiOrganizationsScreenState extends State<MiOrganizationsScreen> {
   bool isLoading = false;
   TextEditingController textController = TextEditingController();
   List<OrganizationModel> organizations = [];
@@ -64,7 +65,22 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
-         
+          actions: [
+            AnimSearchBar(
+              searchIconColor: textColor,
+              textFieldIconColor: textColor,
+              color: backgroundColor,
+              width: 300,
+              textController: textController,
+              onSuffixTap: () {
+                setState(() {
+                  textController.clear();
+                });
+              },
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              onSubmitted: (String) {},
+            ),
+          ],
         ),
         body: isLoading
             ? const Center(
@@ -104,21 +120,19 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                 child: RichText(
                                   text: TextSpan(
                                     children: [
-                                      
                                       TextSpan(
-                                        text: 'NUESTRAS ORGANIZACIONES\n',
+                                        text: 'ADMINISTRAR ORGANIZACIONES\n',
                                         style: TextStyle(
                                             fontSize: 35,
                                             fontWeight: FontWeight.bold,
                                             color: textColor),
                                       ),
                                       const TextSpan(
-                                        text: 'Encontra tu organización favorita',
+                                        text: 'Todas tus organizaciones\n',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: Color.fromARGB(255, 201, 200, 200)),
                                       ),
-                                     
                                     ],
                                   ),
                                 ),
@@ -170,7 +184,7 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                               ResponsiveGridRow(
                                 rowSegments: 12,
                                 children: List.generate(
-                                  organizations.length,
+                                  2,
                                   (index) {
                                     final itemOrganization = organizations[index];
                                     return ResponsiveGridCol(
@@ -185,7 +199,6 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                                             padding:
                                                 const EdgeInsets.only(left: 15, right: 5, top: 15),
                                             child: MyOrganizationCard(
-                                              myOrganization: false,
                                               onPressed: () {},
                                               image: itemOrganization.imageUrl,
                                               description: itemOrganization.description,

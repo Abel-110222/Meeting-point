@@ -14,6 +14,7 @@ class MyCategoryCard extends StatefulWidget {
   final bool isSelected;
   final Color? backColor;
   final Color? textColor;
+  final bool  vTemp;
 
   const MyCategoryCard({
     this.skeleton = true,
@@ -26,6 +27,7 @@ class MyCategoryCard extends StatefulWidget {
     this.isSelected = false,
     this.backColor = Colors.white,
     this.textColor = Colors.black,
+    this.vTemp = true,
     Key? key,
   }) : super(key: key);
 
@@ -39,7 +41,7 @@ class _MyCategoryCardState extends State<MyCategoryCard> {
   @override
   Widget build(BuildContext context) {
     // widthScreen para web
-    if (widget.widthScreen >= 600) {
+    if (widget.widthScreen >= 600 || widget.vTemp ) {
       return Skeletonizer(
         containersColor: Colors.amber,
         enabled: widget.skeleton,
