@@ -31,6 +31,8 @@ class PerfilScreen extends StatelessWidget {
       body: ListView(
         children: [
           Container(
+            width: resp.width,
+            height: resp.height,
             color: backgroundColor,
             padding: const EdgeInsets.all(16),
             child: Column(
